@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>usr_password=</key>
+	<string>password=</string>
+	<key>usr_name=</key>
+	<string>username=</string>
+	<key>AccountPasswordConfirmString</key>
+	<string>Login Successful</string>
+	<key>TopPageConfirmString</key>
+	<string>Titanet wireless</string>
+	<key>TopPageURL</key>
+	<string>https://wlanauth.noc.titech.ac.jp/fs/customwebauth/techauth.html</string>
+	<key>PostURL</key>
+	<string>https://wlanauth.noc.titech.ac.jp/login.html</string>
+</dict>
+</plist>
