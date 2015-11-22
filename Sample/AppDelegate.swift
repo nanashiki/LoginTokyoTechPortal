@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFinishLogin", name: LoginNotification.success.rawValue, object: nil)
             NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailLogin", name: LoginNotification.fail.rawValue, object: nil)
             
-            login.start(completion: nil)
+            login.start()
         }
         
         return true
