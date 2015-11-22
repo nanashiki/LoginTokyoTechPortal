@@ -28,10 +28,29 @@ public enum LoginNotification : String{
 
 public extension String {
     func escapeStr() -> String {
-        let raw: NSString = self
         let allowedCharacterSet = NSMutableCharacterSet.alphanumericCharacterSet()
         allowedCharacterSet.addCharactersInString("-._~")
-        return raw.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet)!
+        return self.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? self
+    }
+    
+    func containsString(aString_ : String?)->Bool{
+        if let aString = aString_{
+            return self.containsString(aString)
+        }else{
+            return false
+        }
+    }
+    
+    func addString(addString_: String? , afterString target_: String?) -> String{
+        guard let target = target_ else{
+            return self
+        }
+        
+        guard let addString = addString_ else{
+            return self
+        }
+        
+        return self.stringByReplacingOccurrencesOfString(target, withString: "\(target)\(addString)")
     }
 }
 
@@ -202,7 +221,7 @@ public class Login: NSObject {
     private func login_TopPage(loginTitanetWireless loginTitanetWireless:Bool, completion:((Bool,String)->())){
         HTTPConnection.getStringFromGETRequest(loginDic["TopPageURL"], completion:{html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["TopPageConfirmString"]!){
+                if html.containsString(self.loginDic["TopPageConfirmString"]){
                     print("TopPage OK")
                     completion(true,html)
                 }else{
@@ -228,11 +247,11 @@ public class Login: NSObject {
     
     private func login_AccountPassword(html html : String ,account : String, password: String,completion:((Bool,String)->())){
         var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginDic["usr_name="]!,withString: "\(loginDic["usr_name="]!)\(account)")
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginDic["usr_password="]!, withString: "\(loginDic["usr_password="]!)\(password.escapeStr())")
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer:loginDic["TopPageURL"]!,completion: {html_ in
+        postStr = postStr.addString(account, afterString: loginDic["usr_name="])
+        postStr = postStr.addString(password.escapeStr(), afterString: loginDic["usr_password="])
+        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer:loginDic["TopPageURL"] ?? "",completion: {html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["AccountPasswordConfirmString"]!){
+                if html.containsString(self.loginDic["AccountPasswordConfirmString"]){
                     print("AccountPassword OK")
                     completion(true,html)
                 }else{
@@ -250,7 +269,7 @@ public class Login: NSObject {
     
     
     private func login_Matrixcode(html html: String, matrixcode: Array<String>,completion:((Bool,String)->())){
-        guard var matrixArr = RegularExpressionMatch.matchesInString(html, pattern: loginDic["matrixcodeRegularExpressionPattern"]!) else{
+        guard var matrixArr = RegularExpressionMatch.matchesInString(html, pattern: loginDic["matrixcodeRegularExpressionPattern"] ?? "") else{
             self.status = .UnknownError
             completion(false,"")
             return
@@ -266,7 +285,9 @@ public class Login: NSObject {
             for var j = 0; j < alphabet.count ; j++ {
                 let arr = matrixArr[i]
                 if arr[0].containsString(alphabet[j]){
-                    let k = Int(arr[1])!
+                    guard let k = Int(arr[1]) else{
+                        break
+                    }
                     codes += [matrixcode[j*7+k-1]]
                     matrixNums += [(j*7+k-1)]
                     matrixs += ["\(alphabet[j])\(k)"]
@@ -278,14 +299,14 @@ public class Login: NSObject {
         self.matrixs = matrixs
         
         var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginDic["code1="]!,withString: "\(loginDic["code1="]!)\(codes[0])")
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginDic["code2="]!,withString: "\(loginDic["code2="]!)\(codes[1])")
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginDic["code3="]!,withString: "\(loginDic["code3="]!)\(codes[2])")
+        postStr = postStr.addString(codes[0], afterString: loginDic["code1="])
+        postStr = postStr.addString(codes[1], afterString: loginDic["code2="])
+        postStr = postStr.addString(codes[2], afterString: loginDic["code3="])
         
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer: loginDic["AccountPasswordURL"]!, completion: {
+        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer: loginDic["AccountPasswordURL"] ?? "", completion: {
             html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["MatrixcodeConfirmString"]!){
+                if html.containsString(self.loginDic["MatrixcodeConfirmString"]){
                     print("Matrixcode OK")
                     completion(true,html)
                 }else{

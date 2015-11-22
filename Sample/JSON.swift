@@ -12,7 +12,7 @@ class JSON: NSObject {
     static func arrayFromString(aString:String?)->[String]?{
         if let str = aString{
             do{
-                return try NSJSONSerialization.JSONObjectWithData(str.dataUsingEncoding(NSUTF8StringEncoding)!, options: .AllowFragments) as? [String]
+                return try NSJSONSerialization.JSONObjectWithData(str.dataUsingEncoding(NSUTF8StringEncoding) ?? NSData(), options: .AllowFragments) as? [String]
             }catch{
                 return nil
             }

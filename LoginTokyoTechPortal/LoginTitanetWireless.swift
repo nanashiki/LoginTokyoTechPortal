@@ -72,7 +72,7 @@ public class LoginTitanetWireless: NSObject {
     private func login_TopPage(completion completion:((Bool,String)->())){
         HTTPConnection.getStringFromGETRequest(loginTWDic["TopPageURL"],timeout: 3.0, completion:{html_ in
             if let html = html_{
-                if html.containsString(self.loginTWDic["TopPageConfirmString"]!){
+                if html.containsString(self.loginTWDic["TopPageConfirmString"]){
                     print("TopPage_TW OK")
                     completion(true,html)
                 }else{
@@ -90,11 +90,11 @@ public class LoginTitanetWireless: NSObject {
     
     private func login_AccountPassword(html html : String ,account : String, password: String,completion:((Bool,String)->())){
         var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginTWDic["usr_name="]!,withString: "\(loginTWDic["usr_name="]!)\(account)")
-        postStr = postStr.stringByReplacingOccurrencesOfString(loginTWDic["usr_password="]!, withString: "\(loginTWDic["usr_password="]!)\(password.escapeStr())")
-        HTTPConnection.getStringFromPOSTRequest(url:loginTWDic["PostURL"], post: postStr, referer:loginTWDic["TopPageURL"]!,timeout: nil ,completion: {html_ in
+        postStr = postStr.addString(account, afterString: loginTWDic["usr_name="])
+        postStr = postStr.addString(password.escapeStr(), afterString: loginTWDic["usr_password="])
+        HTTPConnection.getStringFromPOSTRequest(url:loginTWDic["PostURL"], post: postStr, referer:loginTWDic["TopPageURL"] ?? "",timeout: nil ,completion: {html_ in
             if let html = html_{
-                if html.containsString(self.loginTWDic["AccountPasswordConfirmString"]!){
+                if html.containsString(self.loginTWDic["AccountPasswordConfirmString"]){
                     print("AccountPassword_TW OK")
                     self.status = .Success
                     completion(true,html)
