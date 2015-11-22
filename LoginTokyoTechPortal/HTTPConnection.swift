@@ -9,61 +9,70 @@
 import UIKit
 
 class HTTPConnection: NSObject {
-    static func getStringFromGETRequest(url_:String?,timeout timeout_:NSTimeInterval?,completion:(String?)->Void){
-        if let url = url_{
-            let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-            request.HTTPMethod = "GET"
-            
-            if let timeout = timeout_{
-                request.timeoutInterval = timeout
-            }
-            
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
-                data, response, error in
-                if (error == nil) {
-                    let result = String(data: data!, encoding: NSUTF8StringEncoding)
-                    completion(result)
-                } else {
-                    completion(nil)
-//                    print(error)
-                }
-            })
-            task.resume()
-        }else{
+    static func getStringFromGETRequest(urlString_:String?,timeout timeout_:NSTimeInterval? = nil,completion:(String?)->Void){
+        guard let urlString = urlString_ else{
             completion(nil)
+            return
         }
+        
+        guard let url = NSURL(string: urlString) else{
+            completion(nil)
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "GET"
+        
+        if let timeout = timeout_{
+            request.timeoutInterval = timeout
+        }
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+            data_, response, error in
+            if let data = data_{
+                let result = String(data: data, encoding: NSUTF8StringEncoding)
+                completion(result)
+            }else{
+                completion(nil)
+            }
+        })
+        task.resume()
     }
     
-    static func getStringFromPOSTRequest(url url_:String?,post:String,referer:String,timeout timeout_:NSTimeInterval?,completion:(String?)->Void){
-        if let url = url_{
-            let request = NSMutableURLRequest(URL: NSURL(string: url)!)
-            
-            request.HTTPMethod = "POST"
-            request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
-            request.setValue("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", forHTTPHeaderField: "Accept")
-            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
-            request.setValue("https://portal.nap.gsic.titech.ac.jp", forHTTPHeaderField: "Origin")
-            request.setValue("User-Agent", forHTTPHeaderField: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1")
-            request.setValue(referer, forHTTPHeaderField: "Referer")
-            
-            if let timeout = timeout_{
-                request.timeoutInterval = timeout
-            }
-            
-            let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
-                data, response, error in
-                if (error == nil) {
-                    let result = String(data: data!, encoding: NSUTF8StringEncoding)
-                    completion(result)
-                } else {
-                    completion(nil)
-//                    print(error)
-                }
-            })
-            task.resume()
-        }else{
+    static func getStringFromPOSTRequest(url urlString_:String?,post:String,referer:String,timeout timeout_:NSTimeInterval? = nil,completion:(String?)->Void){
+        guard let urlString = urlString_ else{
             completion(nil)
+            return
         }
+        
+        guard let url = NSURL(string: urlString) else{
+            completion(nil)
+            return
+        }
+        
+        let request = NSMutableURLRequest(URL: url)
+        request.HTTPMethod = "POST"
+        request.HTTPBody = post.dataUsingEncoding(NSUTF8StringEncoding)
+        request.setValue("text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", forHTTPHeaderField: "Accept")
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        request.setValue("https://portal.nap.gsic.titech.ac.jp", forHTTPHeaderField: "Origin")
+        request.setValue("User-Agent", forHTTPHeaderField: "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B137 Safari/601.1")
+        request.setValue(referer, forHTTPHeaderField: "Referer")
+        
+        if let timeout = timeout_{
+            request.timeoutInterval = timeout
+        }
+        
+        let task = NSURLSession.sharedSession().dataTaskWithRequest(request, completionHandler: {
+            data_, response, error in
+            if let data = data_{
+                let result = String(data: data, encoding: NSUTF8StringEncoding)
+                completion(result)
+            }else{
+                completion(nil)
+            }
+        })
+        task.resume()
     }
     
     
