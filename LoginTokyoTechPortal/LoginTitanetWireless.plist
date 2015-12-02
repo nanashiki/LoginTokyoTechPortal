@@ -6,11 +6,11 @@
 	<string>password=</string>
 	<key>usr_name=</key>
 	<string>username=</string>
-	<key>AccountPasswordConfirmString</key>
+	<key>SuccessPageConfirmString</key>
 	<string>Login Successful</string>
-	<key>TopPageConfirmString</key>
+	<key>AccountPasswordPageConfirmString</key>
 	<string>Titanet wireless</string>
-	<key>TopPageURL</key>
+	<key>AccountPasswordPageURL</key>
 	<string>https://wlanauth.noc.titech.ac.jp/fs/customwebauth/techauth.html</string>
 	<key>PostURL</key>
 	<string>https://wlanauth.noc.titech.ac.jp/login.html</string>

@@ -12,7 +12,6 @@ public enum LoginStatus : Int{
     case Init
     case NowLogin
     case NetworkError
-    case TopPageNG
     case AccountPasswordOK
     case AccountPasswordNG
     case MatrixcodeNG
@@ -104,7 +103,7 @@ public class Login: NSObject {
                 self.postNotification(.fail)
                 return
             }
-            self.login_TopPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
                 if !success {
                     completion?(self.status)
                     self.postNotification(.fail)
@@ -146,7 +145,7 @@ public class Login: NSObject {
                 completion?(success)
                 return
             }
-            self.login_TopPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
                 if !success {
                     completion?(success)
                     return
@@ -165,7 +164,7 @@ public class Login: NSObject {
                 completion?(success)
                 return
             }
-            self.login_TopPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
                 if !success {
                     completion?(success)
                     return
@@ -193,7 +192,7 @@ public class Login: NSObject {
         switch status{
         case .Success,.MatrixcodeNG,.AccountPasswordOK:
             status = .NowLogin
-            HTTPConnection.getStringFromGETRequest(loginDic["LogoutURL"], completion: {html_ in
+            HTTPConnection.getStringFromGETRequest(loginDic["LogoutPageURL"], completion: {html_ in
                 if let _ = html_{
                     print("Logout OK")
                     completion(true)
@@ -205,28 +204,30 @@ public class Login: NSObject {
                             self.logout(loginTitanetWireless: false, completion: completion)
                         })
                     }else{
-                        print("TopPage NetworkError")
+                        print("LogoutPage NetworkError")
                         self.status = .NetworkError
                         completion(false)
                     }
                 }
             })
         default:
+            print("Logout Skip")
             status = .NowLogin
             completion(true)
             break;
         }
     }
     
-    private func login_TopPage(loginTitanetWireless loginTitanetWireless:Bool, completion:((Bool,String)->())){
-        HTTPConnection.getStringFromGETRequest(loginDic["TopPageURL"], completion:{html_ in
+    private func login_AccountPasswordPage(loginTitanetWireless loginTitanetWireless:Bool, completion:((Bool,String)->())){
+        HTTPConnection.getStringFromGETRequest(loginDic["AccountPasswordPageURL"], completion:{html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["TopPageConfirmString"]){
-                    print("TopPage OK")
+                if html.containsString(self.loginDic["AccountPasswordPageConfirmString"]){
+                    print("AccountPasswordPage OK")
                     completion(true,html)
+                    return
                 }else{
-                    print("TopPage NG")
-                    self.status = .TopPageNG
+                    print("AccountPasswordPage NG")
+                    self.status = .UnknownError
                     completion(false,html)
                 }
             }else{
@@ -234,10 +235,10 @@ public class Login: NSObject {
                     let loginTW = LoginTitanetWireless.sharedInstance
                     loginTW.loginInfo = self.loginInfo
                     loginTW.start(completion: {status in
-                        self.login_TopPage(loginTitanetWireless: false, completion: completion)
+                        self.login_AccountPasswordPage(loginTitanetWireless: false, completion: completion)
                     })
                 }else{
-                    print("TopPage NetworkError")
+                    print("AccountPasswordPage NetworkError")
                     self.status = .NetworkError
                     completion(false,"")
                 }
@@ -249,9 +250,9 @@ public class Login: NSObject {
         var postStr = HTTPConnection.getPOSTStringFromHTML(html)
         postStr = postStr.addString(account, afterString: loginDic["usr_name="])
         postStr = postStr.addString(password.escapeStr(), afterString: loginDic["usr_password="])
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer:loginDic["TopPageURL"] ?? "",completion: {html_ in
+        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer:loginDic["AccountPasswordPageURL"] ?? "",completion: {html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["AccountPasswordConfirmString"]){
+                if html.containsString(self.loginDic["MatrixcodePageConfirmString"]){
                     print("AccountPassword OK")
                     completion(true,html)
                 }else{
@@ -303,10 +304,10 @@ public class Login: NSObject {
         postStr = postStr.addString(codes[1], afterString: loginDic["code2="])
         postStr = postStr.addString(codes[2], afterString: loginDic["code3="])
         
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer: loginDic["AccountPasswordURL"] ?? "", completion: {
+        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer: loginDic["MatrixcodePageURL"] ?? "", completion: {
             html_ in
             if let html = html_{
-                if html.containsString(self.loginDic["MatrixcodeConfirmString"]){
+                if html.containsString(self.loginDic["SuccessPageConfirmString"]){
                     print("Matrixcode OK")
                     completion(true,html)
                 }else{

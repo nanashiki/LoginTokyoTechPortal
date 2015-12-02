@@ -2,19 +2,19 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>TopPageURL</key>
+	<key>AccountPasswordPageURL</key>
 	<string>https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=userpass_key&amp;AUTHMETHOD=UserPassword</string>
 	<key>PostURL</key>
 	<string>https://portal.nap.gsic.titech.ac.jp/GetAccess/Login</string>
-	<key>LogoutURL</key>
+	<key>LogoutPageURL</key>
 	<string>https://portal.nap.gsic.titech.ac.jp/GetAccess/Logout</string>
-	<key>AccountPasswordURL</key>
+	<key>MatrixcodePageURL</key>
 	<string>https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=idg_key&amp;AUTHMETHOD=IG&amp;GASF=CERTIFICATE,IG.GRID&amp;LOCALE=ja_JP&amp;GAREASONCODE=13&amp;GAIDENTIFICATIONID=UserPassword&amp;GARESOURCEID=resourcelistID2&amp;GAURI=https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList&amp;Reason=13&amp;APPID=resourcelistID2&amp;URI=https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList</string>
-	<key>TopPageConfirmString</key>
+	<key>AccountPasswordPageConfirmString</key>
 	<string>Please input your account &amp; password.</string>
-	<key>AccountPasswordConfirmString</key>
+	<key>MatrixcodePageConfirmString</key>
 	<string>Matrix Authentication</string>
-	<key>MatrixcodeConfirmString</key>
+	<key>SuccessPageConfirmString</key>
 	<string>リソース メニュー</string>
 	<key>usr_name=</key>
 	<string>usr_name=</string>
