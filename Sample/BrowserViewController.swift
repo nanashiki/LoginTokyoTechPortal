@@ -21,7 +21,7 @@ class BrowserViewController: UIViewController,UIWebViewDelegate {
         wv.opaque = false
         self.wv.scrollView.contentInset = UIEdgeInsetsMake(64.0, 0.0, 44.0, 0.0)
         self.wv.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(64.0, 0.0, 44.0, 0.0)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFinishLogin", name: LoginNotification.success.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowserViewController.didFinishLogin), name: LoginNotification.success.rawValue, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -59,4 +59,6 @@ class BrowserViewController: UIViewController,UIWebViewDelegate {
         goForwardBtn.enabled = wv.canGoForward
         navBar.topItem?.title = wv.stringByEvaluatingJavaScriptFromString("document.title")
     }
+    
+    
 }

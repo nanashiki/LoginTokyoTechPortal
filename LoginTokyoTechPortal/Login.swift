@@ -74,7 +74,13 @@ public class Login: NSObject {
     public private (set) var matrixs = [String]()
     
     //OCWi html String
-    public private (set) var ocwiHtml = ""
+    public private (set) var ocwiHtml:String?
+    
+    //OCWi Calendar URL
+    public private (set) var ocwiCalendarURL:String?
+    
+    //OCWi Assignments
+    public var assignments = [Assignment]()
     
     private override init() {
         if let path = NSBundle(forClass: self.dynamicType).pathForResource("Login", ofType: "plist"){
@@ -282,8 +288,8 @@ public class Login: NSObject {
         var matrixNums = [Int]()
         var matrixs = [String]()
         
-        for var i = 0; i < matrixArr.count ;i++ {
-            for var j = 0; j < alphabet.count ; j++ {
+        for i in 0 ..< matrixArr.count  {
+            for j in 0 ..< alphabet.count  {
                 let arr = matrixArr[i]
                 if arr[0].containsString(alphabet[j]){
                     guard let k = Int(arr[1]) else{
@@ -328,6 +334,8 @@ public class Login: NSObject {
                 print("OCWi OK")
                 self.ocwiHtml = html
                 self.status = .Success
+                self.ocwiCalendarURL = self.getOCWiCalendarURL(html)
+                self.assignments = Assignment.arr(html)
                 completion(true)
             }else{
                 print("OCWi NG")
@@ -336,6 +344,16 @@ public class Login: NSObject {
             }
         })
     }
+    
+    private func getOCWiCalendarURL(ocwiHTML:String)->String?{
+        let html = ocwiHTML.stringByReplacingOccurrencesOfString("&amp;", withString: "&")
+        if let calenderID = RegularExpressionMatch.matcheInString(html, pattern: "https://secure.ocw.titech.ac.jp/ocwi/index.php\\?module=Ocwi&action=Webcal&iCalendarId=([^\"^']+)"){
+            return "https://secure.ocw.titech.ac.jp/ocwi/index.php?module=Ocwi&action=Webcal&iCalendarId="+calenderID
+        }
+        
+        return nil
+    }
+    
     
     private func postNotification(loginNotification : LoginNotification){
         NSNotificationCenter.defaultCenter().postNotificationName(loginNotification.rawValue, object: nil, userInfo: nil)

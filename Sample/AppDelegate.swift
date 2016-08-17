@@ -27,32 +27,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             )
             
         
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "didStartLogin", name: LoginNotification.start.rawValue, object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFinishLogin", name: LoginNotification.success.rawValue, object: nil)
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "didFailLogin", name: LoginNotification.fail.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didStartLogin), name: LoginNotification.start.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didFinishLogin), name: LoginNotification.success.rawValue, object: nil)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(AppDelegate.didFailLogin), name: LoginNotification.fail.rawValue, object: nil)
             
-            login.start()
+            SVProgressHUD.setMinimumDismissTimeInterval(0.3)
+            
+            login.addObserver(self, forKeyPath: "progress", options: .New, context: nil)
+            
+            login.start(completion: {
+                status in
+                
+                if let url = login.ocwiCalendarURL {
+                    let ud = NSUserDefaults.standardUserDefaults()
+                    ud.setObject(url, forKey: "OCWiCalendarURL")
+                }
+                
+//                print(login.ocwiCalendarURL)
+            })
         }
         
         return true
     }
     
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>){
+        print(Login.sharedInstance.progress)
+    }
+    
     
     func didStartLogin(){
         dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.showWithStatus("now login...",maskType: .Clear)
+            SVProgressHUD.setDefaultMaskType(.Clear)
+            SVProgressHUD.showWithStatus("now login...")
         })
     }
     
     func didFinishLogin(){
+        
         dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.showSuccessWithStatus("Login Success", maskType: .Clear)
+            SVProgressHUD.setDefaultMaskType(.Clear)
+            SVProgressHUD.showSuccessWithStatus("Login Success")
         })
     }
     
     func didFailLogin(){
         dispatch_async(dispatch_get_main_queue(), {
-            SVProgressHUD.showErrorWithStatus("Login Failed", maskType: .Clear)
+            SVProgressHUD.setDefaultMaskType(.Clear)
+            SVProgressHUD.showErrorWithStatus("Login Failed")
         })
     }
 

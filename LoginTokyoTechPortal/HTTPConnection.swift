@@ -76,13 +76,14 @@ class HTTPConnection: NSObject {
     }
     
     
-    static func getPOSTStringFromHTML(var html:String)->String{
+    static func getPOSTStringFromHTML(html:String)->String{
+        var html = html
         html = html.stringByReplacingOccurrencesOfString("<!--<input", withString: "")
         html = html.stringByReplacingOccurrencesOfString("'", withString: "\"")
         guard let result1 = RegularExpressionMatch.matchesInString(html,pattern: "<input ([^<]+)>") else{return ""}
         var postStr = ""
         
-        for (var i = 0; i < result1.count ;i++){
+        for i in 0 ..< result1.count{
             guard let name = RegularExpressionMatch.matchesInString(result1[i][0],pattern: "name=\"([^\"]*)\"") else{continue}
             guard let value = RegularExpressionMatch.matchesInString(result1[i][0],pattern: "value=\"([^\"]*)\"") else{continue}
             if value.count != 0{

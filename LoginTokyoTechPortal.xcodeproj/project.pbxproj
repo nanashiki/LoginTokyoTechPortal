@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		08A61E881CB93CA400C538A2 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A61E871CB93CA400C538A2 /* Assignment.swift */; };
 		08CD3C2C1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08CD3C401BFF5D19005CEE1D /* Login.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C3B1BFF5D19005CEE1D /* Login.plist */; };
 		08CD3C411BFF5D19005CEE1D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3C1BFF5D19005CEE1D /* Login.swift */; };
@@ -74,6 +75,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		08A61E871CB93CA400C538A2 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LoginTokyoTechPortal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginTokyoTechPortal.h; sourceTree = "<group>"; };
 		08CD3C2D1BFF5C6D005CEE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -148,6 +150,7 @@
 				08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */,
 				08CD3C3F1BFF5D19005CEE1D /* RegularExpressionMatch.swift */,
 				08CD3C451BFF5D39005CEE1D /* HTTPConnection.swift */,
+				08A61E871CB93CA400C538A2 /* Assignment.swift */,
 				08CD3C3B1BFF5D19005CEE1D /* Login.plist */,
 				08CD3C3D1BFF5D19005CEE1D /* LoginTitanetWireless.plist */,
 				08CD3C2D1BFF5C6D005CEE1D /* Info.plist */,
@@ -310,6 +313,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				08A61E881CB93CA400C538A2 /* Assignment.swift in Sources */,
 				08CD3C411BFF5D19005CEE1D /* Login.swift in Sources */,
 				08CD3C431BFF5D19005CEE1D /* LoginTitanetWireless.swift in Sources */,
 				08CD3C441BFF5D19005CEE1D /* RegularExpressionMatch.swift in Sources */,
@@ -461,6 +465,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.LoginTokyoTechPortal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -479,6 +484,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.LoginTokyoTechPortal;
 				PRODUCT_NAME = "$(TARGET_NAME)";

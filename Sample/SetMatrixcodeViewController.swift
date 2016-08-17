@@ -22,7 +22,7 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
         
         matrixcode = login.loginInfo.matrixcode
         
-        let longPressGesture  = UILongPressGestureRecognizer(target: self, action: "viewLongPress:")
+        let longPressGesture  = UILongPressGestureRecognizer(target: self, action: #selector(SetMatrixcodeViewController.viewLongPress(_:)))
         longPressGesture.minimumPressDuration = 2.0
         view.addGestureRecognizer(longPressGesture)
     }
@@ -57,7 +57,7 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
             matrixcodeTF.placeholder = "\(alphabet[indexPath.section])\(indexPath.row+1)"
             matrixcodeTF.text = matrixcode[indexPath.section*7+indexPath.row]
             
-            matrixcodeTF.addTarget(self, action: "matrixcodeTFEditingChanged:", forControlEvents: .EditingChanged)
+            matrixcodeTF.addTarget(self, action: #selector(SetMatrixcodeViewController.matrixcodeTFEditingChanged(_:)), forControlEvents: .EditingChanged)
         }
         
         return cell
@@ -67,7 +67,7 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
         if let text = sender.text{
             matrixcode[sender.indexPath.section*7+sender.indexPath.row] = text
             if text.characters.count == 1{
-                performSelector("moveTF:", withObject: sender.indexPath, afterDelay: 0.01)
+                performSelector(#selector(SetMatrixcodeViewController.moveTF(_:)), withObject: sender.indexPath, afterDelay: 0.01)
             }
         }
     }
@@ -142,7 +142,8 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
     
     func save_Matrixcode(){
         view.endEditing(true)
-        SVProgressHUD.showWithStatus("認証中", maskType: .Clear)
+        SVProgressHUD.setDefaultMaskType(.Clear)
+        SVProgressHUD.showWithStatus("認証中")
         if tfConfirmation(){
             login.check(matrixcode: self.matrixcode, completion: {
                 success in
@@ -153,16 +154,16 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
                 
                 dispatch_async(dispatch_get_main_queue(), {
                     if success {
-                        SVProgressHUD.showSuccessWithStatus("保存完了", maskType: .Clear)
+                        SVProgressHUD.showSuccessWithStatus("保存完了")
                     }else{
-                        SVProgressHUD.showErrorWithStatus("認証失敗", maskType: .Clear)
+                        SVProgressHUD.showErrorWithStatus("認証失敗")
                     }
                 })
             })
             
         }else{
             print("error")
-            SVProgressHUD.showErrorWithStatus("空白があります",maskType: .Clear)
+            SVProgressHUD.showErrorWithStatus("空白があります")
         }
     }
     

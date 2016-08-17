@@ -66,7 +66,8 @@ class SetAccountViewController: UIViewController {
     }
 
     @IBAction func saveBtnAction(sender: AnyObject) {
-        SVProgressHUD.showWithStatus("認証中", maskType: .Clear)
+        SVProgressHUD.setDefaultMaskType(.Clear)
+        SVProgressHUD.showWithStatus("認証中")
         tfConfirmation({
             error,account,password in
             print("Account and Password is \(error)")
@@ -86,27 +87,27 @@ class SetAccountViewController: UIViewController {
                     
                     dispatch_async(dispatch_get_main_queue(), {
                         if success {
-                            SVProgressHUD.showSuccessWithStatus("保存完了", maskType: .Clear)
+                            SVProgressHUD.showSuccessWithStatus("保存完了")
                         }else{
-                            SVProgressHUD.showErrorWithStatus("認証失敗", maskType: .Clear)
+                            SVProgressHUD.showErrorWithStatus("認証失敗")
                         }
                     })
                 })
             case .AccountContainSpace:
                 dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus("\(error)", maskType: .Clear)
+                    SVProgressHUD.showErrorWithStatus("\(error)")
                 })
             case .AccountIllegalString:
                 dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus("\(error)", maskType: .Clear)
+                    SVProgressHUD.showErrorWithStatus("\(error)")
                 })
             case .PasswordIllegalString:
                 dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus("\(error)", maskType: .Clear)
+                    SVProgressHUD.showErrorWithStatus("\(error)")
                 })
             default:
                 dispatch_async(dispatch_get_main_queue(), {
-                    SVProgressHUD.showErrorWithStatus("不明なエラー", maskType: .Clear)
+                    SVProgressHUD.showErrorWithStatus("不明なエラー")
                 })
             }
         })
