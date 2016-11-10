@@ -9,6 +9,6 @@
 import UIKit
 
 class UITextFieldPlus: UITextField {
-    var indexPath = NSIndexPath()
+    var indexPath = IndexPath()
     
 }

@@ -18,10 +18,10 @@ class BrowserViewController: UIViewController,UIWebViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        wv.opaque = false
+        wv.isOpaque = false
         self.wv.scrollView.contentInset = UIEdgeInsetsMake(64.0, 0.0, 44.0, 0.0)
         self.wv.scrollView.scrollIndicatorInsets = UIEdgeInsetsMake(64.0, 0.0, 44.0, 0.0)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(BrowserViewController.didFinishLogin), name: LoginNotification.success.rawValue, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BrowserViewController.didFinishLogin), name: NSNotification.Name(rawValue: LoginNotification.success.rawValue), object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,34 +30,34 @@ class BrowserViewController: UIViewController,UIWebViewDelegate {
     }
     
     deinit{
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: LoginNotification.success.rawValue, object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: LoginNotification.success.rawValue), object: nil)
     }
     
-    @IBAction func setBtnAction(sender: AnyObject) {
-        self.performSegueWithIdentifier("Setting", sender: nil)
+    @IBAction func setBtnAction(_ sender: AnyObject) {
+        self.performSegue(withIdentifier: "Setting", sender: nil)
     }
     
-    @IBAction func reloginBtnAction(sender: AnyObject) {
+    @IBAction func reloginBtnAction(_ sender: AnyObject) {
         Login.sharedInstance.start(completion: nil)
     }
     
-    func positionForBar(bar:UIBarPositioning) -> UIBarPosition{
-        return .TopAttached
+    func positionForBar(_ bar:UIBarPositioning) -> UIBarPosition{
+        return .topAttached
     }
     
     func didFinishLogin(){
-        self.wv.loadRequest(NSURLRequest(URL: NSURL(string: "https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList")!))
+        self.wv.loadRequest(URLRequest(url: URL(string: "https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList")!))
     }
     
-    func webViewDidStartLoad(webView: UIWebView) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
     }
     
-    func webViewDidFinishLoad(webView: UIWebView) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-        goBackBtn.enabled = wv.canGoBack
-        goForwardBtn.enabled = wv.canGoForward
-        navBar.topItem?.title = wv.stringByEvaluatingJavaScriptFromString("document.title")
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        goBackBtn.isEnabled = wv.canGoBack
+        goForwardBtn.isEnabled = wv.canGoForward
+        navBar.topItem?.title = wv.stringByEvaluatingJavaScript(from: "document.title")
     }
     
     

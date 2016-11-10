@@ -6,30 +6,30 @@
 //  Copyright © 2015年 nanashiki. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-public class LoginInfo: NSObject {
-    public var account:String
+public struct PortalAccount {
+    public var username:String
     public var password:String
     public var matrixcode:[String]
     
-    public init(account account_:String?,password password_:String?,matrixcode matrixcode_:[String]?) {
-        if let account = account_{
-            self.account = account
+    public init(username:String?,password:String?,matrixcode:[String]?) {
+        if let username = username{
+            self.username = username
         }else{
-            self.account = ""
+            self.username = ""
         }
         
-        if let password = password_{
+        if let password = password{
             self.password = password
         }else{
             self.password = ""
         }
         
-        if let matrixcode = matrixcode_{
+        if let matrixcode = matrixcode{
             self.matrixcode = matrixcode
         }else{
-            self.matrixcode = [String](count:70, repeatedValue: "")
+            self.matrixcode = [String](repeating: "", count: 70)
         }
     }
 }

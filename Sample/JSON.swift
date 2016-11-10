@@ -9,10 +9,10 @@
 import UIKit
 
 class JSON: NSObject {
-    static func arrayFromString(aString:String?)->[String]?{
+    static func arrayFromString(_ aString:String?)->[String]?{
         if let str = aString{
             do{
-                return try NSJSONSerialization.JSONObjectWithData(str.dataUsingEncoding(NSUTF8StringEncoding) ?? NSData(), options: .AllowFragments) as? [String]
+                return try JSONSerialization.jsonObject(with: str.data(using: String.Encoding.utf8) ?? Data(), options: .allowFragments) as? [String]
             }catch{
                 return nil
             }
@@ -21,9 +21,9 @@ class JSON: NSObject {
         }
     }
     
-    static func stringFromArray(aArray : [String])->String?{
+    static func stringFromArray(_ aArray : [String])->String?{
         do{
-            return try NSString(data: NSJSONSerialization.dataWithJSONObject(aArray, options: .PrettyPrinted), encoding: NSUTF8StringEncoding) as? String
+            return try NSString(data: JSONSerialization.data(withJSONObject: aArray, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) as? String
         }catch{
             return nil
         }

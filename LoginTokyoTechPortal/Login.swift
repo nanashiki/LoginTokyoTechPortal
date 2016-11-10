@@ -6,17 +6,19 @@
 //  Copyright © 2015年 nanashiki. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Alamofire
+import Kanna
 
 public enum LoginStatus : Int{
     case Init
-    case NowLogin
-    case NetworkError
-    case AccountPasswordOK
-    case AccountPasswordNG
-    case MatrixcodeNG
-    case UnknownError
-    case Success
+    case nowLogin
+    case networkError
+    case accountPasswordOK
+    case accountPasswordNG
+    case matrixcodeNG
+    case unknownError
+    case success
 }
 
 public enum LoginNotification : String{
@@ -25,77 +27,64 @@ public enum LoginNotification : String{
     case fail = "LoginFail"
 }
 
-public extension String {
-    func escapeStr() -> String {
-        let allowedCharacterSet = NSMutableCharacterSet.alphanumericCharacterSet()
-        allowedCharacterSet.addCharactersInString("-._~")
-        return self.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? self
-    }
-    
-    func containsString(aString_ : String?)->Bool{
-        if let aString = aString_{
-            return self.containsString(aString)
-        }else{
-            return false
-        }
-    }
-    
-    func addString(addString_: String? , afterString target_: String?) -> String{
-        guard let target = target_ else{
-            return self
-        }
-        
-        guard let addString = addString_ else{
-            return self
-        }
-        
-        return self.stringByReplacingOccurrencesOfString(target, withString: "\(target)\(addString)")
-    }
+fileprivate struct LoginURL {
+    static let accountPassword = "https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=userpass_key&AUTHMETHOD=UserPassword"
+    static let matrixcode = "https://portal.nap.gsic.titech.ac.jp/GetAccess/Login?Template=idg_key&AUTHMETHOD=IG&GASF=CERTIFICATE,IG.GRID&LOCALE=ja_JP&GAREASONCODE=13&GAIDENTIFICATIONID=UserPassword&GARESOURCEID=resourcelistID2&GAURI=https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList&Reason=13&APPID=resourcelistID2&URI=https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList"
+    static let logout = "https://portal.nap.gsic.titech.ac.jp/GetAccess/Logout"
+    static let post = "https://portal.nap.gsic.titech.ac.jp/GetAccess/Login"
+    static let ocwi = "https://secure.ocw.titech.ac.jp/ocwi/index.php"
+    static let calender = "https://secure.ocw.titech.ac.jp/ocwi/index.php?module=Ocwi&action=Webcal&iCalendarId="
 }
 
-public class Login: NSObject {
+fileprivate struct ConfirmString {
+    static let accountPassword = "Please input your account & password."
+    static let matrixcode = "Matrix Authentication"
+    static let success = "リソース メニュー"
+}
+
+fileprivate struct FormInputName {
+    static let username = "usr_name"
+    static let password = "usr_password"
+    static let code1 = "message3"
+    static let code2 = "message4"
+    static let code3 = "message5"
+}
+
+fileprivate struct RegexpPattern {
+    static let matrixcode = "\\[([A-J]{1}),([1-7]{1})\\]"
+    static let calender = "https://secure.ocw.titech.ac.jp/ocwi/index.php\\?module=Ocwi&action=Webcal&iCalendarId=([^\"^']+)"
+}
+
+open class Login: NSObject {
     //sharedInstance
-    public static let sharedInstance = Login()
+    open static let sharedInstance = Login()
     
     //Status
-    public private (set) var status:LoginStatus = .Init
-    public private (set) dynamic var progress = 0
+    open fileprivate (set) var status:LoginStatus = .Init
+    open fileprivate (set) dynamic var progress = 0
     
-    //LoginDic
-    let loginDic : [String:String]
+    //Portal Account
+    open var account = PortalAccount(username: nil, password: nil, matrixcode: nil)
     
-    //LoginInfo
-    public var loginInfo = LoginInfo(account: nil, password: nil, matrixcode: nil)
+    //Matrix Indexs
+    open fileprivate (set) var matrixIndexs = [Int]()
     
-    //Matrix Numbers
-    public private (set) var matrixNums = [Int]()
-    
-    //Matrixs
-    public private (set) var matrixs = [String]()
+    //Matrix Values
+    open fileprivate (set) var matrixs = [String]()
     
     //OCWi html String
-    public private (set) var ocwiHtml:String?
+    open fileprivate (set) var ocwiHtml:String?
     
     //OCWi Calendar URL
-    public private (set) var ocwiCalendarURL:String?
+    open fileprivate (set) var ocwiCalendarURL:String?
     
     //OCWi Assignments
-    public var assignments = [Assignment]()
+    open var assignments = [Assignment]()
     
-    private override init() {
-        if let path = NSBundle(forClass: self.dynamicType).pathForResource("Login", ofType: "plist"){
-            if let dic : [String:String] = NSDictionary(contentsOfFile: path) as? [String:String]{
-                loginDic = dic
-            }else{
-                loginDic = Dictionary()
-            }
-        }else{
-            loginDic = Dictionary()
-        }
-    }
+    fileprivate override init() {}
     
-    public func start(completion completion:((LoginStatus)->())? = nil){
-        if status == .NowLogin {
+    open func start(completion:((LoginStatus)->())? = nil){
+        if status == .nowLogin {
             completion?(self.status)
             self.postNotification(.fail)
             return
@@ -115,14 +104,14 @@ public class Login: NSObject {
                     self.postNotification(.fail)
                     return
                 }
-                self.login_AccountPassword(html: html, account: self.loginInfo.account, password: self.loginInfo.password, completion: {success,html in
+                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password, completion: {success,html in
                     if !success {
                         completion?(self.status)
                         self.postNotification(.fail)
                         return
                     }
                     self.progress = 1
-                    self.login_Matrixcode(html: html, matrixcode: self.loginInfo.matrixcode, completion: {success,html in
+                    self.login_Matrixcode(html: html, matrixcode: self.account.matrixcode, completion: {success,html in
                         if !success {
                             completion?(self.status)
                             self.postNotification(.fail)
@@ -132,7 +121,7 @@ public class Login: NSObject {
                         self.login_OCWi(completion: {success in
                             if !success {
                                 completion?(self.status)
-                                self.postNotification(.fail)
+                                self.postNotification(.fail)//successでいいかも？
                                 return
                             }
                             self.progress = 3
@@ -145,7 +134,7 @@ public class Login: NSObject {
         })
     }
     
-    public func check(account account : String,password: String,completion:((Bool)->())?){
+    open func check(account : String,password: String,completion:((Bool)->())?){
         self.logout(loginTitanetWireless: true, completion: {success in
             if !success {
                 completion?(success)
@@ -157,14 +146,14 @@ public class Login: NSObject {
                     return
                 }
                 self.login_AccountPassword(html: html, account: account, password: password, completion: {success,html in
-                    self.status = success ? .AccountPasswordOK:.AccountPasswordNG
+                    self.status = success ? .accountPasswordOK:.accountPasswordNG
                     completion?(success)
                 })
             })
         })
     }
     
-    public func check(matrixcode matrixcode:[String],completion:((Bool)->())?){
+    open func check(matrixcode:[String],completion:((Bool)->())?){
         self.logout(loginTitanetWireless: true, completion: {success in
             if !success {
                 completion?(success)
@@ -175,7 +164,7 @@ public class Login: NSObject {
                     completion?(success)
                     return
                 }
-                self.login_AccountPassword(html: html, account: self.loginInfo.account, password: self.loginInfo.password, completion: {success,html in
+                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password, completion: {success,html in
                     if !success {
                         completion?(success)
                         return
@@ -194,168 +183,238 @@ public class Login: NSObject {
         })
     }
     
-    private func logout(loginTitanetWireless loginTitanetWireless:Bool, completion:(Bool->())){
+    fileprivate func logout(loginTitanetWireless:Bool, completion:@escaping ((Bool)->())){
         switch status{
-        case .Success,.MatrixcodeNG,.AccountPasswordOK:
-            status = .NowLogin
-            HTTPConnection.getStringFromGETRequest(loginDic["LogoutPageURL"], completion: {html_ in
-                if let _ = html_{
+        case .success,.matrixcodeNG,.accountPasswordOK:
+            status = .nowLogin
+            Alamofire.request(LoginURL.logout).responseString(completionHandler: {
+                response in
+                switch response.result {
+                case .success(_):
                     print("Logout OK")
                     completion(true)
-                }else{
+                case .failure(let error):
                     if loginTitanetWireless{
                         let loginTW = LoginTitanetWireless.sharedInstance
-                        loginTW.loginInfo = self.loginInfo
+                        loginTW.account = self.account
                         loginTW.start(completion: {status in
-                            self.logout(loginTitanetWireless: false, completion: completion)
+                            if status == .success || status == .alreadySuccess {
+                                self.logout(loginTitanetWireless: false, completion: completion)
+                            }else{
+                                print("Logout NetworkError:\(error)")
+                                self.status = .networkError
+                                completion(false)
+                            }
                         })
                     }else{
-                        print("LogoutPage NetworkError")
-                        self.status = .NetworkError
+                        print("Logout NetworkError:\(error)")
+                        self.status = .networkError
                         completion(false)
                     }
+                    
                 }
             })
         default:
             print("Logout Skip")
-            status = .NowLogin
+            status = .nowLogin
             completion(true)
             break;
         }
     }
     
-    private func login_AccountPasswordPage(loginTitanetWireless loginTitanetWireless:Bool, completion:((Bool,String)->())){
-        HTTPConnection.getStringFromGETRequest(loginDic["AccountPasswordPageURL"], completion:{html_ in
-            if let html = html_{
-                if html.containsString(self.loginDic["AccountPasswordPageConfirmString"]){
+    fileprivate func login_AccountPasswordPage(loginTitanetWireless:Bool, completion:@escaping ((Bool,String)->())){
+        Alamofire.request(LoginURL.accountPassword).responseString(completionHandler: {
+            response in
+            switch response.result {
+            case .success(let html):
+                if html.contains(ConfirmString.accountPassword){
                     print("AccountPasswordPage OK")
                     completion(true,html)
                     return
                 }else{
                     print("AccountPasswordPage NG")
-                    self.status = .UnknownError
+                    self.status = .unknownError
                     completion(false,html)
                 }
-            }else{
+            case .failure(let error):
                 if loginTitanetWireless{
                     let loginTW = LoginTitanetWireless.sharedInstance
-                    loginTW.loginInfo = self.loginInfo
+                    loginTW.account = self.account
                     loginTW.start(completion: {status in
-                        self.login_AccountPasswordPage(loginTitanetWireless: false, completion: completion)
+                        if status == .success || status == .alreadySuccess {
+                            self.login_AccountPasswordPage(loginTitanetWireless: false, completion: completion)
+                        }else{
+                            print("AccountPasswordPage NetworkError:\(error)")
+                            self.status = .networkError
+                            completion(false,"")
+                        }
                     })
                 }else{
-                    print("AccountPasswordPage NetworkError")
-                    self.status = .NetworkError
+                    print("AccountPasswordPage NetworkError:\(error)")
+                    self.status = .networkError
                     completion(false,"")
                 }
             }
         })
     }
     
-    private func login_AccountPassword(html html : String ,account : String, password: String,completion:((Bool,String)->())){
-        var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.addString(account, afterString: loginDic["usr_name="])
-        postStr = postStr.addString(password.escapeStr(), afterString: loginDic["usr_password="])
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer:loginDic["AccountPasswordPageURL"] ?? "",completion: {html_ in
-            if let html = html_{
-                if html.containsString(self.loginDic["MatrixcodePageConfirmString"]){
+    fileprivate func login_AccountPassword(html : String ,account : String, password: String,completion:@escaping ((Bool,String)->())){
+        guard let doc = HTML(html: html, encoding: String.Encoding.utf8) else{
+            return
+        }
+        
+        var parameters = [String:String]()
+        
+        for input in doc.css("input"){
+            guard let name = input["name"] else{
+                continue
+            }
+            
+            guard var value = input["value"] else{
+                continue
+            }
+            
+            if name == FormInputName.username {
+                value = account
+            }
+            
+            if name == FormInputName.password {
+                value = password
+            }
+            
+            parameters[name] = value
+        }
+        
+        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.accountPassword]).responseString(completionHandler: {
+            response in
+            switch response.result {
+            case .success(let html):
+                if html.contains(ConfirmString.matrixcode){
                     print("AccountPassword OK")
                     completion(true,html)
                 }else{
                     print("AccountPassword NG")
-                    self.status = .AccountPasswordNG
+                    self.status = .accountPasswordNG
                     completion(false,html)
                 }
-            }else{
-                self.status = .NetworkError
+            case .failure(let error):
+                print("AccountPassword NetworkError:\(error)")
+                self.status = .networkError
                 completion(false,"")
             }
         })
-        
     }
     
     
-    private func login_Matrixcode(html html: String, matrixcode: Array<String>,completion:((Bool,String)->())){
-        guard var matrixArr = RegularExpressionMatch.matchesInString(html, pattern: loginDic["matrixcodeRegularExpressionPattern"] ?? "") else{
-            self.status = .UnknownError
+    fileprivate func login_Matrixcode(html: String, matrixcode: Array<String>,completion:@escaping ((Bool,String)->())){
+        guard let matrixArr = html.matches(RegexpPattern.matrixcode) else{
+            self.status = .unknownError
             completion(false,"")
             return
         }
         
-        let alphabet = ["A","B","C","D","E","F","G","H","I","J"]
+        let alphabets = ["A","B","C","D","E","F","G","H","I","J"]
         
         var codes = [String]()
         var matrixNums = [Int]()
         var matrixs = [String]()
         
-        for i in 0 ..< matrixArr.count  {
-            for j in 0 ..< alphabet.count  {
-                let arr = matrixArr[i]
-                if arr[0].containsString(alphabet[j]){
-                    guard let k = Int(arr[1]) else{
+        for matrix in matrixArr {
+            for alphabet in alphabets.enumerated() {
+                if matrix[0].contains(alphabet.element){
+                    guard let k = Int(matrix[1]) else{
                         break
                     }
-                    codes += [matrixcode[j*7+k-1]]
-                    matrixNums += [(j*7+k-1)]
-                    matrixs += ["\(alphabet[j])\(k)"]
+                    codes += [matrixcode[alphabet.offset*7+k-1]]
+                    matrixNums += [(alphabet.offset*7+k-1)]
+                    matrixs += ["\(alphabet.element)\(k)"]
                 }
             }
         }
         
-        self.matrixNums = matrixNums
+        self.matrixIndexs = matrixNums
         self.matrixs = matrixs
         
-        var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.addString(codes[0], afterString: loginDic["code1="])
-        postStr = postStr.addString(codes[1], afterString: loginDic["code2="])
-        postStr = postStr.addString(codes[2], afterString: loginDic["code3="])
+        guard let doc = HTML(html: html, encoding: String.Encoding.utf8) else{
+            return
+        }
         
-        HTTPConnection.getStringFromPOSTRequest(url:loginDic["PostURL"], post: postStr, referer: loginDic["MatrixcodePageURL"] ?? "", completion: {
-            html_ in
-            if let html = html_{
-                if html.containsString(self.loginDic["SuccessPageConfirmString"]){
+        var parameters = [String:String]()
+        
+        for input in doc.css("input"){
+            guard let name = input["name"] else{
+                continue
+            }
+            
+            guard var value = input["value"] else{
+                continue
+            }
+            
+            if name == FormInputName.code1 {
+                value = codes[0]
+            }
+            
+            if name == FormInputName.code2 {
+                value = codes[1]
+            }
+            
+            if name == FormInputName.code3 {
+                value = codes[2]
+            }
+            
+            parameters[name] = value
+        }
+        
+        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.matrixcode]).responseString(completionHandler: {
+            response in
+            switch response.result {
+            case .success(let html):
+                if html.contains(ConfirmString.success){
                     print("Matrixcode OK")
                     completion(true,html)
                 }else{
                     print("Matrixcode NG")
-                    self.status = .MatrixcodeNG
+                    self.status = .matrixcodeNG
                     completion(false,html)
                 }
-            }else{
-                self.status = .NetworkError
+            case .failure(let error):
+                print("Matrixcode NetworkError:\(error)")
+                self.status = .networkError
                 completion(false,"")
             }
         })
     }
     
-    private func login_OCWi(completion completion:((Bool)->())){
-        HTTPConnection.getStringFromGETRequest(loginDic["OCWiURL"], completion:{html_ in
-            if let html = html_{
+    fileprivate func login_OCWi(completion:@escaping ((Bool)->())){
+        Alamofire.request(LoginURL.ocwi).responseString(encoding:String.Encoding.utf8,completionHandler: {
+            response in
+            switch response.result {
+            case .success(let html):
                 print("OCWi OK")
                 self.ocwiHtml = html
-                self.status = .Success
+                self.status = .success
                 self.ocwiCalendarURL = self.getOCWiCalendarURL(html)
                 self.assignments = Assignment.arr(html)
                 completion(true)
-            }else{
-                print("OCWi NG")
-                self.status = .NetworkError
+            case .failure(let error):
+                print("OCWi NG:\(error)")
+                self.status = .networkError
                 completion(false)
             }
         })
     }
     
-    private func getOCWiCalendarURL(ocwiHTML:String)->String?{
-        let html = ocwiHTML.stringByReplacingOccurrencesOfString("&amp;", withString: "&")
-        if let calenderID = RegularExpressionMatch.matcheInString(html, pattern: "https://secure.ocw.titech.ac.jp/ocwi/index.php\\?module=Ocwi&action=Webcal&iCalendarId=([^\"^']+)"){
-            return "https://secure.ocw.titech.ac.jp/ocwi/index.php?module=Ocwi&action=Webcal&iCalendarId="+calenderID
+    fileprivate func getOCWiCalendarURL(_ ocwiHTML:String)->String?{
+        let html = ocwiHTML.replacingOccurrences(of: "&amp;", with: "&")
+        if let calenderID = html.match(RegexpPattern.calender){
+            return LoginURL.calender+calenderID
         }
         
         return nil
     }
     
     
-    private func postNotification(loginNotification : LoginNotification){
-        NSNotificationCenter.defaultCenter().postNotificationName(loginNotification.rawValue, object: nil, userInfo: nil)
+    fileprivate func postNotification(_ loginNotification : LoginNotification){
+        NotificationCenter.default.post(name: Notification.Name(rawValue: loginNotification.rawValue), object: nil, userInfo: nil)
     }
 }

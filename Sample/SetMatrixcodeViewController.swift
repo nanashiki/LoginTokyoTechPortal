@@ -12,15 +12,15 @@ import SVProgressHUD
 import LoginTokyoTechPortal
 
 class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
-    private var matrixcode = [String](count: 70, repeatedValue: "")
-    private let login = Login.sharedInstance
-    private let alphabet = ["A","B","C","D","E","F","G","H","I","J"]
+    fileprivate var matrixcode = [String](repeating: "", count: 70)
+    fileprivate let login = Login.sharedInstance
+    fileprivate let alphabet = ["A","B","C","D","E","F","G","H","I","J"]
     @IBOutlet weak var tv: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        matrixcode = login.loginInfo.matrixcode
+        matrixcode = login.account.matrixcode
         
         let longPressGesture  = UILongPressGestureRecognizer(target: self, action: #selector(SetMatrixcodeViewController.viewLongPress(_:)))
         longPressGesture.minimumPressDuration = 2.0
@@ -33,18 +33,18 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
     }
     
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(_ tableView: UITableView) -> Int {
         return 10
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 7
     }
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        cell.selectionStyle = .None
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        cell.selectionStyle = .none
         
         if let matrixL = cell.viewWithTag(100) as? UILabel{
             matrixL.text = "\(alphabet[indexPath.section])\(indexPath.row+1)"
@@ -53,52 +53,52 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
         if let matrixcodeTF = cell.viewWithTag(200) as? UITextFieldPlus{
             matrixcodeTF.delegate = self
             matrixcodeTF.indexPath = indexPath
-            matrixcodeTF.autocapitalizationType = .AllCharacters
+            matrixcodeTF.autocapitalizationType = .allCharacters
             matrixcodeTF.placeholder = "\(alphabet[indexPath.section])\(indexPath.row+1)"
             matrixcodeTF.text = matrixcode[indexPath.section*7+indexPath.row]
             
-            matrixcodeTF.addTarget(self, action: #selector(SetMatrixcodeViewController.matrixcodeTFEditingChanged(_:)), forControlEvents: .EditingChanged)
+            matrixcodeTF.addTarget(self, action: #selector(SetMatrixcodeViewController.matrixcodeTFEditingChanged(_:)), for: .editingChanged)
         }
         
         return cell
     }
     
-    func matrixcodeTFEditingChanged(sender : UITextFieldPlus){
+    func matrixcodeTFEditingChanged(_ sender : UITextFieldPlus){
         if let text = sender.text{
             matrixcode[sender.indexPath.section*7+sender.indexPath.row] = text
             if text.characters.count == 1{
-                performSelector(#selector(SetMatrixcodeViewController.moveTF(_:)), withObject: sender.indexPath, afterDelay: 0.01)
+                perform(#selector(SetMatrixcodeViewController.moveTF(_:)), with: sender.indexPath, afterDelay: 0.01)
             }
         }
     }
     
-    func moveTF(indexPath : NSIndexPath){
+    func moveTF(_ indexPath : IndexPath){
         let nextIndex = indexPath.section*7+indexPath.row+1
-        let cell = tv.cellForRowAtIndexPath(NSIndexPath(forRow: nextIndex%7, inSection: nextIndex/7))
+        let cell = tv.cellForRow(at: IndexPath(row: nextIndex%7, section: nextIndex/7))
         if let tf = cell?.viewWithTag(200) as? UITextFieldPlus{
             tf.becomeFirstResponder()
         }
     }
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        if string.containsString(" "){
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.contains(" "){
             return false
         }
         
         if let text = (textField.text! as NSString).mutableCopy() as? NSMutableString{
-            text.replaceCharactersInRange(range, withString: string)
+            text.replaceCharacters(in: range, with: string)
             return text.length <= 1
         }
         
         return false
     }
     
-    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
-        let textFieldRect = tv.convertRect(textField.bounds, fromView: textField)
-        var scrollPoint = CGPointMake(0.0,-64.0)
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        let textFieldRect = tv.convert(textField.bounds, from: textField)
+        var scrollPoint = CGPoint(x: 0.0,y: -64.0)
         
         if textFieldRect.origin.y >= 120.0 {
-            scrollPoint = CGPointMake(0.0,textFieldRect.origin.y-144.0)
+            scrollPoint = CGPoint(x: 0.0,y: textFieldRect.origin.y-144.0)
         }
         
         tv.setContentOffset(scrollPoint, animated: true)
@@ -106,71 +106,71 @@ class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         view.endEditing(true)
         return true
     }
     
-    func viewLongPress(sender:UILongPressGestureRecognizer){
-        if sender.state == .Began{
-            let alert = UIAlertController(title: "マトリクスコードインポート", message: "マトリクスコードをインポートしますか？", preferredStyle: .Alert)
-            let okBtn = UIAlertAction(title: "OK", style: .Default, handler: {
+    func viewLongPress(_ sender:UILongPressGestureRecognizer){
+        if sender.state == .began{
+            let alert = UIAlertController(title: "マトリクスコードインポート", message: "マトリクスコードをインポートしますか？", preferredStyle: .alert)
+            let okBtn = UIAlertAction(title: "OK", style: .default, handler: {
                 action in
-                let json = UIPasteboard.generalPasteboard().valueForPasteboardType("public.utf8-plain-text") as! String
+                let json = UIPasteboard.general.value(forPasteboardType: "public.utf8-plain-text") as! String
                 if let arr = JSON.arrayFromString(json){
                     if arr.count == 70{
                         self.matrixcode = arr
                         self.tv.reloadData()
                     }else{
-                        let alert = UIAlertController(title: "エラー", message: "不正な値です", preferredStyle: .Alert)
-                        let okBtn = UIAlertAction(title: "OK", style: .Default, handler: nil)
+                        let alert = UIAlertController(title: "エラー", message: "不正な値です", preferredStyle: .alert)
+                        let okBtn = UIAlertAction(title: "OK", style: .default, handler: nil)
                         alert.addAction(okBtn)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.present(alert, animated: true, completion: nil)
                     }
                 }
             })
-            let cancelBtn = UIAlertAction(title: "cancel", style: .Cancel, handler: nil)
+            let cancelBtn = UIAlertAction(title: "cancel", style: .cancel, handler: nil)
             alert.addAction(okBtn)
             alert.addAction(cancelBtn)
-            presentViewController(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
     }
     
-    @IBAction func saveBtnAction(sender: AnyObject) {
+    @IBAction func saveBtnAction(_ sender: AnyObject) {
         save_Matrixcode()
     }
     
     func save_Matrixcode(){
         view.endEditing(true)
-        SVProgressHUD.setDefaultMaskType(.Clear)
-        SVProgressHUD.showWithStatus("認証中")
+        SVProgressHUD.setDefaultMaskType(.clear)
+        SVProgressHUD.show(withStatus: "認証中")
         if tfConfirmation(){
             login.check(matrixcode: self.matrixcode, completion: {
                 success in
                 if success{
-                    self.login.loginInfo.matrixcode = self.matrixcode
-                    Keychain(service:"com.dotApp.LoginTokyoTechPortal.MatrixCode")[self.login.loginInfo.account] = JSON.stringFromArray(self.matrixcode)
+                    self.login.account.matrixcode = self.matrixcode
+                    Keychain(service:"com.dotApp.LoginTokyoTechPortal.MatrixCode")[self.login.account.username] = JSON.stringFromArray(self.matrixcode)
                 }
                 
-                dispatch_async(dispatch_get_main_queue(), {
+                DispatchQueue.main.async(execute: {
                     if success {
-                        SVProgressHUD.showSuccessWithStatus("保存完了")
+                        SVProgressHUD.showSuccess(withStatus: "保存完了")
                     }else{
-                        SVProgressHUD.showErrorWithStatus("認証失敗")
+                        SVProgressHUD.showError(withStatus: "認証失敗")
                     }
                 })
             })
             
         }else{
             print("error")
-            SVProgressHUD.showErrorWithStatus("空白があります")
+            SVProgressHUD.showError(withStatus: "空白があります")
         }
     }
     
     
     func tfConfirmation()->Bool{
         for code in matrixcode{
-            if code.characters.count == 0 || code.containsString(" "){
+            if code.characters.count == 0 || code.contains(" "){
                return false
             }
         }

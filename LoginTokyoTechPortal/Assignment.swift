@@ -6,15 +6,15 @@
 //  Copyright © 2016年 nanashiki. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-public extension NSDate{
-    static func date(string string_:AnyObject?)->NSDate?{
+public extension Date{
+    static func date(string string_:AnyObject?)->Date?{
         if let string = string_ as? String{
-            let date_formatter = NSDateFormatter()
-            date_formatter.locale = NSLocale(localeIdentifier: "ja")
+            let date_formatter = DateFormatter()
+            date_formatter.locale = Locale(identifier: "ja")
             date_formatter.dateFormat = "yyyy/MM/dd HH:mm"
-            return date_formatter.dateFromString(string)
+            return date_formatter.date(from: string)
         }else{
             return nil
         }
@@ -22,14 +22,25 @@ public extension NSDate{
     }
 }
 
-public class Assignment: NSObject {
-    public let name:String
-    public let time:NSDate
-    public let url:NSURL
-    public let class_name:String
-    public let class_url:NSURL
+fileprivate struct LoginURL {
+    static let ocwi = "https://secure.ocw.titech.ac.jp/ocwi/index.php"
+}
+
+fileprivate struct RegexpPattern {
+    static let assignments = "\\{\n([^}]+)\n\\}"
+    static let time_str = "<td>(.+)</td>"
+    static let class_info = "<td><a href=\"(.+)\">(.+)</a></td>"
+    static let assignment_info = "<td><a href=\"(.+)\">(.+)</a></td>"
+}
+
+open class Assignment: NSObject {
+    open let name:String
+    open let time:Date
+    open let url:URL
+    open let class_name:String
+    open let class_url:URL
     
-    init(name:String,time:NSDate,url:NSURL,class_name:String,class_url:NSURL) {
+    init(name:String,time:Date,url:URL,class_name:String,class_url:URL) {
         self.name = name
         self.time = time
         self.url = url
@@ -37,29 +48,28 @@ public class Assignment: NSObject {
         self.class_url = class_url
     }
     
-    static func arr(aString:String)->[Assignment]{
-        var html = aString.stringByReplacingOccurrencesOfString("<tr>", withString: "{")
-        html = html.stringByReplacingOccurrencesOfString("</tr>", withString: "}")
+    static func arr(_ aString:String)->[Assignment]{
+        var html = aString.replacingOccurrences(of: "<tr>", with: "{")
+        html = html.replacingOccurrences(of: "</tr>", with: "}")
         
         var arr = [Assignment]()
         
-        if let assignments = RegularExpressionMatch.matchesInString(html, pattern: "\\{\n([^}]+)\n\\}"){
+        if let assignments = html.matches(RegexpPattern.assignments){
             for assignment in assignments {
-                let values = assignment[0].componentsSeparatedByString("\n")
+                let values = assignment[0].components(separatedBy: "\n")
                 
                 if values.count != 3{
                     continue
                 }
-                guard let time_str = RegularExpressionMatch.matcheInString(values[0], pattern: "<td>(.+)</td>") else{
-                    
+                guard let time_str = values[0].match(RegexpPattern.time_str) else{
                     continue
                 }
                 
-                guard let time = NSDate.date(string: time_str)else{
+                guard let time = Date.date(string: time_str as AnyObject?)else{
                     continue
                 }
                 
-                guard let class_info = RegularExpressionMatch.matchesInString(values[1], pattern: "<td><a href=\"(.+)\">(.+)</a></td>") else{
+                guard let class_info = values[1].matches(RegexpPattern.class_info) else{
                     continue
                 }
                 
@@ -71,11 +81,11 @@ public class Assignment: NSObject {
                     continue
                 }
                 
-                guard let class_url = NSURL(string: "https://secure.ocw.titech.ac.jp/ocwi/index.php"+class_info[0][0])else{
+                guard let class_url = URL(string: LoginURL.ocwi+class_info[0][0])else{
                     continue
                 }
                 
-                guard let assignment_info = RegularExpressionMatch.matchesInString(values[2], pattern: "<td><a href=\"(.+)\">(.+)</a></td>") else{
+                guard let assignment_info = values[2].matches(RegexpPattern.assignment_info) else{
                     continue
                 }
                 
@@ -87,7 +97,7 @@ public class Assignment: NSObject {
                     continue
                 }
                 
-                guard let url = NSURL(string: "https://secure.ocw.titech.ac.jp/ocwi/index.php"+assignment_info[0][0])else{
+                guard let url = URL(string: LoginURL.ocwi+assignment_info[0][0])else{
                     continue
                 }
                 

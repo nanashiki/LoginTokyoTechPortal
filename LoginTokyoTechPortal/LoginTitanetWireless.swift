@@ -6,109 +6,96 @@
 //  Copyright © 2015年 nanashiki. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import Alamofire
+import Kanna
 
 public enum LoginTitanetWirelessStatus : Int{
-    case Init
-    case NowLogin
-    case NetworkError
-    case TopPageNG
-    case AccountPasswordNG
-    case Success
+    case logout
+    case nowLogin
+    case success
+    case alreadySuccess
+    case failure
+    case noWiFi
+    case othersWiFi
+    case accountNotSet
+    case unknownError
 }
 
 public enum FinishLoginTitanetWirelessNotification : String{
     case success = "LoginTitanetWirelessSuccess"
 }
 
-public class LoginTitanetWireless: NSObject {
+fileprivate struct LoginURL {
+    static let post = "https://wlanauth.noc.titech.ac.jp/login.html"
+}
+
+fileprivate struct FormInputName {
+    static let username = "username"
+    static let password = "password"
+}
+
+fileprivate struct ConfirmString {
+    static let success = "Login Successful"
+    static let alreadyLogined = "techauth.html"
+    static let failure = "techfailure.html"
+}
+
+open class LoginTitanetWireless: NSObject {
     //SharedInstance
-    public static let sharedInstance = LoginTitanetWireless()
+    open static let sharedInstance = LoginTitanetWireless()
     
     //LoginInfo
-    public var loginInfo = LoginInfo(account: nil, password: nil, matrixcode: nil)
+    open var account = PortalAccount(username: nil, password: nil, matrixcode: nil)
     
     //Status
-    public private (set) var status:LoginTitanetWirelessStatus = .Init
+    open fileprivate (set) var status:LoginTitanetWirelessStatus = .logout
     
-    //LoginDic
-    let loginTWDic : [String:String]
+    var sessionManager : SessionManager
     
-    override private init() {
-        if let path = NSBundle(forClass: self.dynamicType).pathForResource("LoginTitanetWireless", ofType: "plist"){
-            if let dic : [String:String] = NSDictionary(contentsOfFile: path) as? [String:String]{
-                loginTWDic = dic
-            }else{
-                loginTWDic = Dictionary()
-            }
-        }else{
-            loginTWDic = Dictionary()
-        }
+    override fileprivate init() {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 3
+        sessionManager = SessionManager(configuration: configuration)
     }
     
-    public func start(completion completion:((LoginTitanetWirelessStatus)->())){
-        if status == .NowLogin{
-            completion(self.status)
-            return
-        }
-        self.status = .NowLogin
-        self.login_TopPage(completion: {
-            success,html in
-            if !success {
-                completion(self.status)
-                return
-            }
-            self.login_AccountPassword(html: html, account: self.loginInfo.account, password: self.loginInfo.password, completion: {
-                success ,html in
-                completion(self.status)
-                if success{
-                    NSNotificationCenter.defaultCenter().postNotificationName(FinishLoginTitanetWirelessNotification.success.rawValue, object: nil)
+    open func start(completion:((LoginTitanetWirelessStatus)->())? = nil){
+        status = .nowLogin
+        sessionManager.request(LoginURL.post,
+                               method: .post,
+                               parameters: [FormInputName.username:account.username,
+                                            FormInputName.password:account.password,
+                                            "buttonClicked":"4",
+                                            "redirect_url":"",
+                                            "err_flag":"0",
+                                            "Submit":"同意して利用",]
+            ).responseString(completionHandler: {
+                response in
+                switch response.result {
+                case .success(let html):
+                    if html.contains(ConfirmString.success) {
+                        self.status = .success
+                    }else if html.contains(ConfirmString.alreadyLogined) {
+                        self.status = .alreadySuccess
+                    }else if html.contains(ConfirmString.failure){
+                        self.status = .failure
+                    }else{
+                        self.status = .unknownError
+                        print("Unknown Error")
+                    }
+                case .failure(let error):
+                    print("Time out:\(error)")
+                    self.status = .unknownError
+                    break
                 }
-            })
-            
-        })
-    }
-    
-    private func login_TopPage(completion completion:((Bool,String)->())){
-        HTTPConnection.getStringFromGETRequest(loginTWDic["AccountPasswordPageURL"],timeout: 3.0, completion:{html_ in
-            if let html = html_{
-                if html.containsString(self.loginTWDic["AccountPasswordPageConfirmString"]){
-                    print("TopPage_TW OK")
-                    completion(true,html)
-                }else{
-                    print("TopPage_TW NG")
-                    self.status = .TopPageNG
-                    completion(false,html)
+                
+                if self.status == .success || self.status == .alreadySuccess {
+                    NotificationCenter.default.post(name: Notification.Name(rawValue: FinishLoginTitanetWirelessNotification.success.rawValue), object: nil, userInfo: nil)
                 }
-            }else{
-                print("Can't access Titanet Wireless")
-                self.status = .NetworkError
-                completion(false,"")
+                
+                completion?(self.status)
             }
-        })
-    }
-    
-    private func login_AccountPassword(html html : String ,account : String, password: String,completion:((Bool,String)->())){
-        var postStr = HTTPConnection.getPOSTStringFromHTML(html)
-        postStr = postStr.addString(account, afterString: loginTWDic["usr_name="])
-        postStr = postStr.addString(password.escapeStr(), afterString: loginTWDic["usr_password="])
-        HTTPConnection.getStringFromPOSTRequest(url:loginTWDic["PostURL"], post: postStr, referer:loginTWDic["AccountPasswordPageURL"] ?? "",timeout: nil ,completion: {html_ in
-            if let html = html_{
-                if html.containsString(self.loginTWDic["SuccessPageConfirmString"]){
-                    print("AccountPassword_TW OK")
-                    self.status = .Success
-                    completion(true,html)
-                }else{
-                    print("AccountPassword_TW NG")
-                    self.status = .AccountPasswordNG
-                    completion(false,html)
-                }
-            }else{
-                self.status = .NetworkError
-                completion(false,"")
-            }
-        })
-        
+        )
     }
     
 }

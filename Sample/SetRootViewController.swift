@@ -23,33 +23,33 @@ class SetRootViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataList.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAtIndexPath indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
         cell.textLabel?.text = dataList[indexPath.row]
         
         return cell
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+    func tableView(_ tableView: UITableView, didSelectRowAtIndexPath indexPath: IndexPath){
         switch indexPath.row{
         case 0:
-            self.performSegueWithIdentifier("Account", sender: nil)
+            self.performSegue(withIdentifier: "Account", sender: nil)
         case 1:
-            self.performSegueWithIdentifier("Matrixcode", sender: nil)
+            self.performSegue(withIdentifier: "Matrixcode", sender: nil)
         default:
             break;
         }
         
     }
 
-    @IBAction func backBtnAction(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion:{
-            UIApplication.sharedApplication().statusBarHidden = true
+    @IBAction func backBtnAction(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion:{
+            UIApplication.shared.isStatusBarHidden = true
         })
     }
 }

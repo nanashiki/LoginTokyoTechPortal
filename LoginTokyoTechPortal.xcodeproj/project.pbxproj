@@ -21,15 +21,22 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		084059161DD0E0290094F225 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
+		084059181DD0E0400094F225 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
+		084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
+		0840591A1DD0E05A0094F225 /* Kanna.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
+		0840591C1DD0E0600094F225 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0889C00C1DD0DA9600A6E4A3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
+		0889C00D1DD0DA9600A6E4A3 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
+		0892B5721DD0DE0B00E58D55 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */; };
+		0892B5731DD0DE0B00E58D55 /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08A61E881CB93CA400C538A2 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A61E871CB93CA400C538A2 /* Assignment.swift */; };
 		08CD3C2C1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		08CD3C401BFF5D19005CEE1D /* Login.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C3B1BFF5D19005CEE1D /* Login.plist */; };
 		08CD3C411BFF5D19005CEE1D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3C1BFF5D19005CEE1D /* Login.swift */; };
-		08CD3C421BFF5D19005CEE1D /* LoginTitanetWireless.plist in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C3D1BFF5D19005CEE1D /* LoginTitanetWireless.plist */; };
 		08CD3C431BFF5D19005CEE1D /* LoginTitanetWireless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */; };
-		08CD3C441BFF5D19005CEE1D /* RegularExpressionMatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3F1BFF5D19005CEE1D /* RegularExpressionMatch.swift */; };
-		08CD3C461BFF5D39005CEE1D /* HTTPConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C451BFF5D39005CEE1D /* HTTPConnection.swift */; };
-		08CD3C481BFF5D6E005CEE1D /* LoginInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C471BFF5D6E005CEE1D /* LoginInfo.swift */; };
+		08CD3C441BFF5D19005CEE1D /* Regexp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3F1BFF5D19005CEE1D /* Regexp.swift */; };
+		08CD3C481BFF5D6E005CEE1D /* PortalAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C471BFF5D6E005CEE1D /* PortalAccount.swift */; };
 		08CD3C511BFF6F42005CEE1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */; };
 		08CD3C561BFF6F42005CEE1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C541BFF6F42005CEE1D /* Main.storyboard */; };
 		08CD3C581BFF6F42005CEE1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C571BFF6F42005CEE1D /* Assets.xcassets */; };
@@ -37,8 +44,6 @@
 		08CD3C611BFF7407005CEE1D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */; };
 		08CD3C671BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */; };
 		08CD3C681BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		08CD3C6E1BFF7A86005CEE1D /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6C1BFF7A86005CEE1D /* KeychainAccess.framework */; };
-		08CD3C6F1BFF7A86005CEE1D /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6C1BFF7A86005CEE1D /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08CD3C701BFF7A86005CEE1D /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */; };
 		08CD3C711BFF7A86005CEE1D /* SVProgressHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		08FA4B151BFF7F1F000802A4 /* SetAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */; };
@@ -65,8 +70,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0840591A1DD0E05A0094F225 /* Kanna.framework in Embed Frameworks */,
+				0892B5731DD0DE0B00E58D55 /* KeychainAccess.framework in Embed Frameworks */,
 				08CD3C711BFF7A86005CEE1D /* SVProgressHUD.framework in Embed Frameworks */,
-				08CD3C6F1BFF7A86005CEE1D /* KeychainAccess.framework in Embed Frameworks */,
+				0840591C1DD0E0600094F225 /* Alamofire.framework in Embed Frameworks */,
 				08CD3C681BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -75,17 +82,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0829194A1DD0E57800DAFA4F /* Sample.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Sample.entitlements; sourceTree = "<group>"; };
+		0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
+		0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = ../Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		08A61E871CB93CA400C538A2 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LoginTokyoTechPortal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginTokyoTechPortal.h; sourceTree = "<group>"; };
 		08CD3C2D1BFF5C6D005CEE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		08CD3C3B1BFF5D19005CEE1D /* Login.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Login.plist; sourceTree = "<group>"; };
 		08CD3C3C1BFF5D19005CEE1D /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		08CD3C3D1BFF5D19005CEE1D /* LoginTitanetWireless.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LoginTitanetWireless.plist; sourceTree = "<group>"; };
 		08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTitanetWireless.swift; sourceTree = "<group>"; };
-		08CD3C3F1BFF5D19005CEE1D /* RegularExpressionMatch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegularExpressionMatch.swift; sourceTree = "<group>"; };
-		08CD3C451BFF5D39005CEE1D /* HTTPConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPConnection.swift; sourceTree = "<group>"; };
-		08CD3C471BFF5D6E005CEE1D /* LoginInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginInfo.swift; sourceTree = "<group>"; };
+		08CD3C3F1BFF5D19005CEE1D /* Regexp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regexp.swift; sourceTree = "<group>"; };
+		08CD3C471BFF5D6E005CEE1D /* PortalAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PortalAccount.swift; sourceTree = "<group>"; };
 		08CD3C4E1BFF6F42005CEE1D /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08CD3C551BFF6F42005CEE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -93,7 +101,6 @@
 		08CD3C5A1BFF6F42005CEE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08CD3C5C1BFF6F42005CEE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
-		08CD3C6C1BFF7A86005CEE1D /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = ../Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = ../Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
 		08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAccountViewController.swift; sourceTree = "<group>"; };
 		08FA4B121BFF7F1F000802A4 /* SetMatrixcodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetMatrixcodeViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +114,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0889C00C1DD0DA9600A6E4A3 /* Alamofire.framework in Frameworks */,
+				0889C00D1DD0DA9600A6E4A3 /* Kanna.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,21 +123,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0892B5721DD0DE0B00E58D55 /* KeychainAccess.framework in Frameworks */,
 				08CD3C701BFF7A86005CEE1D /* SVProgressHUD.framework in Frameworks */,
-				08CD3C6E1BFF7A86005CEE1D /* KeychainAccess.framework in Frameworks */,
+				084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */,
 				08CD3C671BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Frameworks */,
+				0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */,
+				084059181DD0E0400094F225 /* Kanna.framework in Frameworks */,
+				084059161DD0E0290094F225 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0889C0091DD0DA9600A6E4A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */,
+				0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		08CD3C1E1BFF5C6D005CEE1D = {
 			isa = PBXGroup;
 			children = (
 				08CD3C2A1BFF5C6D005CEE1D /* LoginTokyoTechPortal */,
 				08CD3C4F1BFF6F42005CEE1D /* Sample */,
 				08CD3C291BFF5C6D005CEE1D /* Products */,
+				0889C0091DD0DA9600A6E4A3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -146,13 +169,10 @@
 			children = (
 				08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */,
 				08CD3C3C1BFF5D19005CEE1D /* Login.swift */,
-				08CD3C471BFF5D6E005CEE1D /* LoginInfo.swift */,
 				08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */,
-				08CD3C3F1BFF5D19005CEE1D /* RegularExpressionMatch.swift */,
-				08CD3C451BFF5D39005CEE1D /* HTTPConnection.swift */,
+				08CD3C471BFF5D6E005CEE1D /* PortalAccount.swift */,
 				08A61E871CB93CA400C538A2 /* Assignment.swift */,
-				08CD3C3B1BFF5D19005CEE1D /* Login.plist */,
-				08CD3C3D1BFF5D19005CEE1D /* LoginTitanetWireless.plist */,
+				08CD3C3F1BFF5D19005CEE1D /* Regexp.swift */,
 				08CD3C2D1BFF5C6D005CEE1D /* Info.plist */,
 			);
 			path = LoginTokyoTechPortal;
@@ -161,6 +181,7 @@
 		08CD3C4F1BFF6F42005CEE1D /* Sample */ = {
 			isa = PBXGroup;
 			children = (
+				0829194A1DD0E57800DAFA4F /* Sample.entitlements */,
 				08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */,
 				08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */,
 				08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */,
@@ -171,7 +192,7 @@
 				08CD3C541BFF6F42005CEE1D /* Main.storyboard */,
 				08CD3C571BFF6F42005CEE1D /* Assets.xcassets */,
 				08CD3C591BFF6F42005CEE1D /* LaunchScreen.storyboard */,
-				08CD3C6C1BFF7A86005CEE1D /* KeychainAccess.framework */,
+				0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */,
 				08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */,
 				08CD3C5C1BFF6F42005CEE1D /* Info.plist */,
 			);
@@ -236,17 +257,21 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0710;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = nanashiki;
 				TargetAttributes = {
 					08CD3C271BFF5C6D005CEE1D = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0810;
 					};
 					08CD3C331BFF5CAF005CEE1D = {
 						CreatedOnToolsVersion = 7.1.1;
 					};
 					08CD3C4D1BFF6F42005CEE1D = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = LZ2DAKZC5J;
+						LastSwiftMigration = 0810;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -275,8 +300,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08CD3C421BFF5D19005CEE1D /* LoginTitanetWireless.plist in Resources */,
-				08CD3C401BFF5D19005CEE1D /* Login.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -316,9 +339,8 @@
 				08A61E881CB93CA400C538A2 /* Assignment.swift in Sources */,
 				08CD3C411BFF5D19005CEE1D /* Login.swift in Sources */,
 				08CD3C431BFF5D19005CEE1D /* LoginTitanetWireless.swift in Sources */,
-				08CD3C441BFF5D19005CEE1D /* RegularExpressionMatch.swift in Sources */,
-				08CD3C461BFF5D39005CEE1D /* HTTPConnection.swift in Sources */,
-				08CD3C481BFF5D6E005CEE1D /* LoginInfo.swift in Sources */,
+				08CD3C441BFF5D19005CEE1D /* Regexp.swift in Sources */,
+				08CD3C481BFF5D6E005CEE1D /* PortalAccount.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,8 +401,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -403,7 +427,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -427,8 +451,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -445,9 +471,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -459,18 +486,24 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.LoginTokyoTechPortal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -478,17 +511,23 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.LoginTokyoTechPortal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -509,8 +548,11 @@
 		08CD3C5E1BFF6F42005CEE1D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = LZ2DAKZC5J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -519,14 +561,20 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		08CD3C5F1BFF6F42005CEE1D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = LZ2DAKZC5J;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -535,6 +583,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.Sample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
