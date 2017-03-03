@@ -42,14 +42,6 @@ fileprivate struct ConfirmString {
     static let success = "リソース メニュー"
 }
 
-fileprivate struct FormInputName {
-    static let username = "usr_name"
-    static let password = "usr_password"
-    static let code1 = "message3"
-    static let code2 = "message4"
-    static let code3 = "message5"
-}
-
 fileprivate struct RegexpPattern {
     static let matrixcode = "\\[([A-J]{1}),([1-7]{1})\\]"
     static let calender = "https://secure.ocw.titech.ac.jp/ocwi/index.php\\?module=Ocwi&action=Webcal&iCalendarId=([^\"^']+)"
@@ -310,11 +302,15 @@ open class Login: NSObject {
                 continue
             }
             
-            if name == FormInputName.username {
+            guard let type = input["type"] else{
+                continue
+            }
+            
+            if type == "text" {
                 value = account
             }
             
-            if name == FormInputName.password {
+            if type == "password" {
                 value = password
             }
             
@@ -393,16 +389,13 @@ open class Login: NSObject {
                 continue
             }
             
-            if name == FormInputName.code1 {
-                value = codes[0]
+            guard let type = input["type"] else{
+                continue
             }
             
-            if name == FormInputName.code2 {
-                value = codes[1]
-            }
-            
-            if name == FormInputName.code3 {
-                value = codes[2]
+            if type == "password" {
+                value = codes[tmp_index]
+                tmp_index += 1
             }
             
             parameters[name] = value
