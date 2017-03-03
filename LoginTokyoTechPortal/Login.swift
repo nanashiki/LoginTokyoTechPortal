@@ -57,7 +57,7 @@ fileprivate struct RegexpPattern {
 
 open class Login: NSObject {
     //sharedInstance
-    open static let sharedInstance = Login()
+    open static let shared = Login()
     
     //Status
     open fileprivate (set) var status:LoginStatus = .Init
@@ -92,33 +92,33 @@ open class Login: NSObject {
         
         self.postNotification(.start)
         progress = 0
-        self.logout(loginTitanetWireless: true, completion: {success in
+        self.logout{success in
             if !success {
                 completion?(self.status)
                 self.postNotification(.fail)
                 return
             }
-            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage{success,html in
                 if !success {
                     completion?(self.status)
                     self.postNotification(.fail)
                     return
                 }
-                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password, completion: {success,html in
+                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password){success,html in
                     if !success {
                         completion?(self.status)
                         self.postNotification(.fail)
                         return
                     }
                     self.progress = 1
-                    self.login_Matrixcode(html: html, matrixcode: self.account.matrixcode, completion: {success,html in
+                    self.login_Matrixcode(html: html, matrixcode: self.account.matrixcode, interrupt: false){success,html in
                         if !success {
                             completion?(self.status)
                             self.postNotification(.fail)
                             return
                         }
                         self.progress = 2
-                        self.login_OCWi(completion: {success in
+                        self.login_OCWi{success in
                             if !success {
                                 completion?(self.status)
                                 self.postNotification(.fail)//successでいいかも？
@@ -127,63 +127,96 @@ open class Login: NSObject {
                             self.progress = 3
                             completion?(self.status)
                             self.postNotification(.success)
-                        })
-                    })
-                })
-            })
-        })
+                        }
+                    }
+                }
+            }
+        }
     }
     
     open func check(account : String,password: String,completion:((Bool)->())?){
-        self.logout(loginTitanetWireless: true, completion: {success in
+        self.logout{success in
             if !success {
                 completion?(success)
                 return
             }
-            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage{success,html in
                 if !success {
                     completion?(success)
                     return
                 }
-                self.login_AccountPassword(html: html, account: account, password: password, completion: {success,html in
+                self.login_AccountPassword(html: html, account: account, password: password){success,html in
                     self.status = success ? .accountPasswordOK:.accountPasswordNG
                     completion?(success)
-                })
-            })
-        })
+                }
+            }
+        }
     }
     
     open func check(matrixcode:[String],completion:((Bool)->())?){
-        self.logout(loginTitanetWireless: true, completion: {success in
+        self.logout{success in
             if !success {
                 completion?(success)
                 return
             }
-            self.login_AccountPasswordPage(loginTitanetWireless: true, completion: {success,html in
+            self.login_AccountPasswordPage{success,html in
                 if !success {
                     completion?(success)
                     return
                 }
-                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password, completion: {success,html in
+                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password) {success,html in
                     if !success {
                         completion?(success)
                         return
                     }
-                    self.login_Matrixcode(html: html, matrixcode: matrixcode, completion: {success,html in
+                    self.login_Matrixcode(html: html, matrixcode: matrixcode, interrupt: false) {success,html in
                         if !success {
                             completion?(success)
                             return
                         }
-                        self.login_OCWi(completion: {success in
+                        self.login_OCWi{success in
                             completion?(success)
-                        })
-                    })
-                })
-            })
-        })
+                        }
+                    }
+                }
+            }
+        }
     }
     
-    fileprivate func logout(loginTitanetWireless:Bool, completion:@escaping ((Bool)->())){
+    open func showMatrixcode(completion:(([String],[String])->())? = nil){
+        if status == .nowLogin {
+            completion?([],[])
+            self.postNotification(.fail)
+            return
+        }
+        
+        self.logout{success in
+            if !success {
+                completion?([],[])
+                return
+            }
+            self.login_AccountPasswordPage{success,html in
+                if !success {
+                    completion?([],[])
+                    return
+                }
+                self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password){success,html in
+                    if !success {
+                        self.status = .accountPasswordNG
+                        completion?([],[])
+                        return
+                    }
+                    
+                    self.login_Matrixcode(html: html, matrixcode: self.account.matrixcode, interrupt: true){success,html in
+                        self.status = .accountPasswordOK
+                        completion?(self.matrixIndexStrings,self.matrixcodes)
+                    }
+                }
+            }
+        }
+    }
+    
+    fileprivate func logout(loginTitanetWireless:Bool = true, completion:@escaping ((Bool)->())){
         switch status{
         case .success,.matrixcodeNG,.accountPasswordOK:
             status = .nowLogin
@@ -222,7 +255,7 @@ open class Login: NSObject {
         }
     }
     
-    fileprivate func login_AccountPasswordPage(loginTitanetWireless:Bool, completion:@escaping ((Bool,String)->())){
+    fileprivate func login_AccountPasswordPage(loginTitanetWireless:Bool = true, completion:@escaping ((Bool,String)->())){
         Alamofire.request(LoginURL.accountPassword).responseString(completionHandler: {
             response in
             switch response.result {
