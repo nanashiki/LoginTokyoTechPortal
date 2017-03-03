@@ -69,8 +69,11 @@ open class Login: NSObject {
     //Matrix Indexs
     open fileprivate (set) var matrixIndexs = [Int]()
     
-    //Matrix Values
-    open fileprivate (set) var matrixs = [String]()
+    //Matrix Index Strings
+    open fileprivate (set) var matrixIndexStrings = [String]()
+    
+    //Matrix codes
+    open fileprivate (set) var matrixcodes = [String]()
     
     //OCWi html String
     open fileprivate (set) var ocwiHtml:String?
@@ -339,7 +342,7 @@ open class Login: NSObject {
     }
     
     
-    fileprivate func login_Matrixcode(html: String, matrixcode: Array<String>,completion:@escaping ((Bool,String)->())){
+    fileprivate func login_Matrixcode(html: String, matrixcode: Array<String>,interrupt:Bool,completion:@escaping ((Bool,String)->())){
         guard let matrixArr = html.matches(RegexpPattern.matrixcode) else{
             self.status = .unknownError
             completion(false,"")
@@ -366,13 +369,20 @@ open class Login: NSObject {
         }
         
         self.matrixIndexs = matrixNums
-        self.matrixs = matrixs
+        self.matrixIndexStrings = matrixs
+        self.matrixcodes = codes
+        
+        if interrupt{
+            completion(false,"")
+            return
+        }
         
         guard let doc = HTML(html: html, encoding: String.Encoding.utf8) else{
             return
         }
         
         var parameters = [String:String]()
+        var tmp_index = 0
         
         for input in doc.css("input"){
             guard let name = input["name"] else{
