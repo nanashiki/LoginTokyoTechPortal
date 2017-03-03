@@ -10,11 +10,15 @@ import Foundation
 
 public extension String {
     func match(_ pattern : String,options:NSRegularExpression.Options = []) -> String?{
-        return Regexp(pattern,options:options).match(self)
+        return Regexp(pattern,options:options).match(self,at: 1)
     }
     
     func matches(_ pattern : String,options:NSRegularExpression.Options = []) -> [[String]]?{
         return Regexp(pattern,options:options).matches(self)
+    }
+    
+    func match0(_ pattern : String,options:NSRegularExpression.Options = []) -> String?{
+        return Regexp(pattern,options:options).match(self,at: 0)
     }
 }
 
@@ -45,7 +49,7 @@ struct Regexp{
         }
     }
     
-    func match(_ string : String)->String?{
+    func match(_ string : String,at : Int)->String?{
         do{
             let dat = try NSRegularExpression(pattern: pattern, options: options).matches(in: string, options: .reportProgress, range: NSMakeRange(0,string.characters.count))
             
@@ -53,7 +57,7 @@ struct Regexp{
                 return nil
             }
             
-            return (string as NSString).substring(with: dat[0].rangeAt(1))
+            return (string as NSString).substring(with: dat[0].rangeAt(at))
         }catch{
             return nil
         }
