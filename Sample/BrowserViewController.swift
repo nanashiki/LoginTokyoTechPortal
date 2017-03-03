@@ -38,7 +38,7 @@ class BrowserViewController: UIViewController,UIWebViewDelegate {
     }
     
     @IBAction func reloginBtnAction(_ sender: AnyObject) {
-        Login.sharedInstance.start(completion: nil)
+        Login.shared.start(completion: nil)
     }
     
     func positionForBar(_ bar:UIBarPositioning) -> UIBarPosition{

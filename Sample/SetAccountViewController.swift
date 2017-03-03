@@ -22,7 +22,7 @@ enum ACPASSConfirmationError : Error{
 class SetAccountViewController: UIViewController {
     var accountTF : UITextField?
     var passwordTF : UITextField?
-    let login = Login.sharedInstance
+    let login = Login.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()

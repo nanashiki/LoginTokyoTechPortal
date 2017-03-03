@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let login = Login.sharedInstance
+        let login = Login.shared
         if let username = UserDefaults.standard.string(forKey: "Account"){
             login.account = PortalAccount(
                 username: username,
@@ -34,6 +34,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             SVProgressHUD.setMinimumDismissTimeInterval(0.3)
             
             login.addObserver(self, forKeyPath: "progress", options: .new, context: nil)
+            
+//            login.showMatrixcode(){
+//                matrix, code in
+//                
+//                print(matrix)
+//                
+//                
+//            }
+//            return true
             
             login.start(completion: {
                 status in

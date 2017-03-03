@@ -13,7 +13,7 @@ import LoginTokyoTechPortal
 
 class SetMatrixcodeViewController: UIViewController,UITextFieldDelegate {
     fileprivate var matrixcode = [String](repeating: "", count: 70)
-    fileprivate let login = Login.sharedInstance
+    fileprivate let login = Login.shared
     fileprivate let alphabet = ["A","B","C","D","E","F","G","H","I","J"]
     @IBOutlet weak var tv: UITableView!
     
