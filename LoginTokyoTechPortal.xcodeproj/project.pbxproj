@@ -21,8 +21,6 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		084059161DD0E0290094F225 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
-		084059181DD0E0400094F225 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
 		084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
 		0840591A1DD0E05A0094F225 /* Kanna.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
@@ -128,8 +126,6 @@
 				084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */,
 				08CD3C671BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Frameworks */,
 				0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */,
-				084059181DD0E0400094F225 /* Kanna.framework in Frameworks */,
-				084059161DD0E0290094F225 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,7 +253,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = nanashiki;
 				TargetAttributes = {
 					08CD3C271BFF5C6D005CEE1D = {
