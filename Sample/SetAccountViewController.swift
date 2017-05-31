@@ -68,79 +68,72 @@ class SetAccountViewController: UIViewController {
     @IBAction func saveBtnAction(_ sender: AnyObject) {
         SVProgressHUD.setDefaultMaskType(.clear)
         SVProgressHUD.show(withStatus: "認証中")
-        tfConfirmation({
-            error,account,password in
-            print("Account and Password is \(error)")
-            switch error {
-            case .noError:
-                self.login.check(account: account, password: password,completion: {
-                    success in
-                    if success {
-                        self.login.account.username = account
-                        let ud = UserDefaults.standard
-                        ud.set(account, forKey: "Account")
-                        ud.synchronize()
-                        
-                        self.login.account.password = password
-                        Keychain(service:"com.dotApp.LoginTokyoTechPortal.password")[account] = password
-                    }
+        let (error,account,password) = tfConfirmation()
+        print("Account and Password is \(error)")
+        switch error {
+        case .noError:
+            self.login.check(username: account, password: password,completion: {
+                success in
+                if success {
+                    self.login.account.username = account
+                    let ud = UserDefaults.standard
+                    ud.set(account, forKey: "Account")
+                    ud.synchronize()
                     
-                    DispatchQueue.main.async(execute: {
-                        if success {
-                            SVProgressHUD.showSuccess(withStatus: "保存完了")
-                        }else{
-                            SVProgressHUD.showError(withStatus: "認証失敗")
-                        }
-                    })
-                })
-            case .accountContainSpace:
+                    self.login.account.password = password
+                    Keychain(service:"com.dotApp.LoginTokyoTechPortal.password")[account] = password
+                }
+                
                 DispatchQueue.main.async(execute: {
-                    SVProgressHUD.showError(withStatus: "\(error)")
+                    if success {
+                        SVProgressHUD.showSuccess(withStatus: "保存完了")
+                    }else{
+                        SVProgressHUD.showError(withStatus: "認証失敗")
+                    }
                 })
-            case .accountIllegalString:
-                DispatchQueue.main.async(execute: {
-                    SVProgressHUD.showError(withStatus: "\(error)")
-                })
-            case .passwordIllegalString:
-                DispatchQueue.main.async(execute: {
-                    SVProgressHUD.showError(withStatus: "\(error)")
-                })
-            default:
-                DispatchQueue.main.async(execute: {
-                    SVProgressHUD.showError(withStatus: "不明なエラー")
-                })
-            }
-        })
+            })
+        case .accountContainSpace:
+            DispatchQueue.main.async(execute: {
+                SVProgressHUD.showError(withStatus: "\(error)")
+            })
+        case .accountIllegalString:
+            DispatchQueue.main.async(execute: {
+                SVProgressHUD.showError(withStatus: "\(error)")
+            })
+        case .passwordIllegalString:
+            DispatchQueue.main.async(execute: {
+                SVProgressHUD.showError(withStatus: "\(error)")
+            })
+        default:
+            DispatchQueue.main.async(execute: {
+                SVProgressHUD.showError(withStatus: "不明なエラー")
+            })
+        }
     }
     
-    func tfConfirmation(_ completed:((ACPASSConfirmationError,String,String)->())){
+    func tfConfirmation()->(ACPASSConfirmationError,String,String){
         if var account = accountTF?.text{
             if let password = passwordTF?.text{
                 if account.characters.count == 0 || account.contains(" "){
-                    completed(.accountContainSpace,"","")
-                    return
+                    return (.accountContainSpace,"","")
                 }
                 
                 account = account.replacingOccurrences(of: "b", with: "B")
                 account = account.replacingOccurrences(of: "m", with: "M")
                 
                 if !account.contains("B") && !account.contains("M"){
-                    completed(.accountIllegalString,"","")
-                    return
+                    return (.accountIllegalString,"","")
                 }
                 
                 if password.characters.count < 8 || password.contains(" "){
-                    completed(.passwordIllegalString,"","")
-                    return
+                    return (.passwordIllegalString,"","")
                 }
                 
-                completed(.noError,account,password)
-                return
+                return(.noError,account,password)
             }
         }
         
-        completed(.unknown,"","")
-        
+        return (.unknown,"","")
     }
 
     @IBAction func BackBtnAction(_ sender: AnyObject) {

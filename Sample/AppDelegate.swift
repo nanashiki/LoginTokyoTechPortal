@@ -44,7 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //            }
 //            return true
             
-            login.start(completion: {
+            login.start{
                 status in
                 
                 if let url = login.ocwiCalendarURL {
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 
 //                print(login.ocwiCalendarURL)
-            })
+            }
         }
         
         return true

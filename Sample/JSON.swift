@@ -23,7 +23,7 @@ class JSON: NSObject {
     
     static func stringFromArray(_ aArray : [String])->String?{
         do{
-            return try NSString(data: JSONSerialization.data(withJSONObject: aArray, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) as? String
+            return try NSString(data: JSONSerialization.data(withJSONObject: aArray, options: .prettyPrinted), encoding: String.Encoding.utf8.rawValue) as String?
         }catch{
             return nil
         }

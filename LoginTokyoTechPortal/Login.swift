@@ -129,7 +129,7 @@ open class Login: NSObject {
         }
     }
     
-    open func check(account : String,password: String,completion:((Bool)->())?){
+    open func check(username : String,password: String,completion:((Bool)->())?){
         self.logout{success in
             if !success {
                 completion?(success)
@@ -140,7 +140,7 @@ open class Login: NSObject {
                     completion?(success)
                     return
                 }
-                self.login_AccountPassword(html: html, account: account, password: password){success,html in
+                self.login_AccountPassword(html: html, account: username, password: password){success,html in
                     self.status = success ? .accountPasswordOK:.accountPasswordNG
                     completion?(success)
                 }
@@ -215,7 +215,7 @@ open class Login: NSObject {
         switch status{
         case .success,.matrixcodeNG,.accountPasswordOK:
             status = .nowLogin
-            Alamofire.request(LoginURL.logout).responseString(completionHandler: {
+            Alamofire.request(LoginURL.logout).responseString{
                 response in
                 switch response.result {
                 case .success(_):
@@ -225,7 +225,7 @@ open class Login: NSObject {
                     if loginTitanetWireless{
                         let loginTW = LoginTitanetWireless.sharedInstance
                         loginTW.account = self.account
-                        loginTW.start(completion: {status in
+                        loginTW.start{status in
                             if status == .success || status == .alreadySuccess {
                                 self.logout(loginTitanetWireless: false, completion: completion)
                             }else{
@@ -233,7 +233,7 @@ open class Login: NSObject {
                                 self.status = .networkError
                                 completion(false)
                             }
-                        })
+                        }
                     }else{
                         print("Logout NetworkError:\(error)")
                         self.status = .networkError
@@ -241,7 +241,7 @@ open class Login: NSObject {
                     }
                     
                 }
-            })
+            }
         default:
             print("Logout Skip")
             status = .nowLogin
@@ -251,7 +251,7 @@ open class Login: NSObject {
     }
     
     fileprivate func login_AccountPasswordPage(loginTitanetWireless:Bool = true, completion:@escaping ((Bool,String)->())){
-        Alamofire.request(LoginURL.accountPassword).responseString(completionHandler: {
+        Alamofire.request(LoginURL.accountPassword).responseString{
             response in
             switch response.result {
             case .success(let html):
@@ -268,7 +268,7 @@ open class Login: NSObject {
                 if loginTitanetWireless{
                     let loginTW = LoginTitanetWireless.sharedInstance
                     loginTW.account = self.account
-                    loginTW.start(completion: {status in
+                    loginTW.start{status in
                         if status == .success || status == .alreadySuccess {
                             self.login_AccountPasswordPage(loginTitanetWireless: false, completion: completion)
                         }else{
@@ -276,14 +276,14 @@ open class Login: NSObject {
                             self.status = .networkError
                             completion(false,"")
                         }
-                    })
+                    }
                 }else{
                     print("AccountPasswordPage NetworkError:\(error)")
                     self.status = .networkError
                     completion(false,"")
                 }
             }
-        })
+        }
     }
     
     fileprivate func login_AccountPassword(html : String ,account : String, password: String,completion:@escaping ((Bool,String)->())){
@@ -317,7 +317,7 @@ open class Login: NSObject {
             parameters[name] = value
         }
         
-        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.accountPassword]).responseString(completionHandler: {
+        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.accountPassword]).responseString{
             response in
             switch response.result {
             case .success(let html):
@@ -334,7 +334,7 @@ open class Login: NSObject {
                 self.status = .networkError
                 completion(false,"")
             }
-        })
+        }
     }
     
     
@@ -401,7 +401,7 @@ open class Login: NSObject {
             parameters[name] = value
         }
         
-        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.matrixcode]).responseString(completionHandler: {
+        Alamofire.request(LoginURL.post, method: .post, parameters: parameters, headers: ["Referer":LoginURL.matrixcode]).responseString{
             response in
             switch response.result {
             case .success(let html):
@@ -418,7 +418,7 @@ open class Login: NSObject {
                 self.status = .networkError
                 completion(false,"")
             }
-        })
+        }
     }
     
     fileprivate func login_OCWi(completion:@escaping ((Bool)->())){
