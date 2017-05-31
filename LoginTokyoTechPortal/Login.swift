@@ -178,33 +178,33 @@ open class Login: NSObject {
         }
     }
     
-    open func showMatrixcode(completion:(([String],[String])->())? = nil){
+    open func showMatrixcode(completion:((LoginStatus,[String],[String])->())? = nil){
         if status == .nowLogin {
-            completion?([],[])
+            completion?(self.status,[],[])
             self.postNotification(.fail)
             return
         }
         
         self.logout{success in
             if !success {
-                completion?([],[])
+                completion?(self.status,[],[])
                 return
             }
             self.login_AccountPasswordPage{success,html in
                 if !success {
-                    completion?([],[])
+                    completion?(self.status,[],[])
                     return
                 }
                 self.login_AccountPassword(html: html, account: self.account.username, password: self.account.password){success,html in
                     if !success {
                         self.status = .accountPasswordNG
-                        completion?([],[])
+                        completion?(self.status,[],[])
                         return
                     }
                     
                     self.login_Matrixcode(html: html, matrixcode: self.account.matrixcode, interrupt: true){success,html in
                         self.status = .accountPasswordOK
-                        completion?(self.matrixIndexStrings,self.matrixcodes)
+                        completion?(self.status,self.matrixIndexStrings,self.matrixcodes)
                     }
                 }
             }
