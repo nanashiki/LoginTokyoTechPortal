@@ -11,7 +11,7 @@ import Alamofire
 import Kanna
 
 public enum LoginStatus : Int{
-    case Init
+    case noLogin
     case nowLogin
     case networkError
     case accountPasswordOK
@@ -52,7 +52,7 @@ open class Login: NSObject {
     open static let shared = Login()
     
     //Status
-    open fileprivate (set) var status:LoginStatus = .Init
+    open fileprivate (set) var status:LoginStatus = .noLogin
     open fileprivate (set) dynamic var progress = 0
     
     //Portal Account
@@ -125,6 +125,33 @@ open class Login: NSObject {
                         }
                     }
                 }
+            }
+        }
+    }
+    
+    open func isLoggedIn(completion:((Bool)->())?) {
+        let sessionManager = Alamofire.SessionManager.default
+        let delegate: Alamofire.SessionDelegate = sessionManager.delegate
+        
+        delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
+            
+            if task.originalRequest != nil{
+                return nil
+            }
+            
+            return request
+        }
+        
+        sessionManager.request("https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList").response {
+            response in
+            delegate.taskWillPerformHTTPRedirection = nil
+            print(response.response?.statusCode ?? 0)
+            if let statusCode = response.response?.statusCode, statusCode == 200{
+                self.status = .success
+                completion?(true)
+            }else{
+                self.status = .noLogin
+                completion?(false)
             }
         }
     }
