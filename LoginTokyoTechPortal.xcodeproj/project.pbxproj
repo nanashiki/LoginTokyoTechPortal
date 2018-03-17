@@ -6,84 +6,20 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		08CD3C331BFF5CAF005CEE1D /* LoginTokyoTechPortal-Universal */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = 08CD3C341BFF5CAF005CEE1D /* Build configuration list for PBXAggregateTarget "LoginTokyoTechPortal-Universal" */;
-			buildPhases = (
-				08CD3C491BFF6E81005CEE1D /* ShellScript */,
-			);
-			dependencies = (
-			);
-			name = "LoginTokyoTechPortal-Universal";
-			productName = "LoginTokyoTechPortal-Universal";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
-		0840591A1DD0E05A0094F225 /* Kanna.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
-		0840591C1DD0E0600094F225 /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0889C00C1DD0DA9600A6E4A3 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */; };
-		0889C00D1DD0DA9600A6E4A3 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; };
-		0892B5721DD0DE0B00E58D55 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */; };
-		0892B5731DD0DE0B00E58D55 /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0889C00D1DD0DA9600A6E4A3 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		08A61E881CB93CA400C538A2 /* Assignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08A61E871CB93CA400C538A2 /* Assignment.swift */; };
 		08CD3C2C1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h in Headers */ = {isa = PBXBuildFile; fileRef = 08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		08CD3C411BFF5D19005CEE1D /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3C1BFF5D19005CEE1D /* Login.swift */; };
 		08CD3C431BFF5D19005CEE1D /* LoginTitanetWireless.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */; };
 		08CD3C441BFF5D19005CEE1D /* Regexp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C3F1BFF5D19005CEE1D /* Regexp.swift */; };
 		08CD3C481BFF5D6E005CEE1D /* PortalAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C471BFF5D6E005CEE1D /* PortalAccount.swift */; };
-		08CD3C511BFF6F42005CEE1D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */; };
-		08CD3C561BFF6F42005CEE1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C541BFF6F42005CEE1D /* Main.storyboard */; };
-		08CD3C581BFF6F42005CEE1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C571BFF6F42005CEE1D /* Assets.xcassets */; };
-		08CD3C5B1BFF6F42005CEE1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08CD3C591BFF6F42005CEE1D /* LaunchScreen.storyboard */; };
-		08CD3C611BFF7407005CEE1D /* BrowserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */; };
-		08CD3C671BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */; };
-		08CD3C681BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		08CD3C701BFF7A86005CEE1D /* SVProgressHUD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */; };
-		08CD3C711BFF7A86005CEE1D /* SVProgressHUD.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		08FA4B151BFF7F1F000802A4 /* SetAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */; };
-		08FA4B161BFF7F1F000802A4 /* SetMatrixcodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B121BFF7F1F000802A4 /* SetMatrixcodeViewController.swift */; };
-		08FA4B171BFF7F1F000802A4 /* SetRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B131BFF7F1F000802A4 /* SetRootViewController.swift */; };
-		08FA4B181BFF7F1F000802A4 /* UITextFieldPlus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B141BFF7F1F000802A4 /* UITextFieldPlus.swift */; };
-		08FA4B1A1BFF7FA1000802A4 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08FA4B191BFF7FA1000802A4 /* JSON.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		08CD3C691BFF76AA005CEE1D /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 08CD3C1F1BFF5C6D005CEE1D /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 08CD3C271BFF5C6D005CEE1D;
-			remoteInfo = LoginTokyoTechPortal;
-		};
-/* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		08CD3C6B1BFF76AA005CEE1D /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				0840591A1DD0E05A0094F225 /* Kanna.framework in Embed Frameworks */,
-				0892B5731DD0DE0B00E58D55 /* KeychainAccess.framework in Embed Frameworks */,
-				08CD3C711BFF7A86005CEE1D /* SVProgressHUD.framework in Embed Frameworks */,
-				0840591C1DD0E0600094F225 /* Alamofire.framework in Embed Frameworks */,
-				08CD3C681BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		0829194A1DD0E57800DAFA4F /* Sample.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; path = Sample.entitlements; sourceTree = "<group>"; };
 		0889C00A1DD0DA9600A6E4A3 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		0889C00B1DD0DA9600A6E4A3 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
-		0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = ../Carthage/Build/iOS/KeychainAccess.framework; sourceTree = "<group>"; };
 		08A61E871CB93CA400C538A2 /* Assignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assignment.swift; sourceTree = "<group>"; };
 		08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = LoginTokyoTechPortal.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		08CD3C2B1BFF5C6D005CEE1D /* LoginTokyoTechPortal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LoginTokyoTechPortal.h; sourceTree = "<group>"; };
@@ -92,19 +28,6 @@
 		08CD3C3E1BFF5D19005CEE1D /* LoginTitanetWireless.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginTitanetWireless.swift; sourceTree = "<group>"; };
 		08CD3C3F1BFF5D19005CEE1D /* Regexp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Regexp.swift; sourceTree = "<group>"; };
 		08CD3C471BFF5D6E005CEE1D /* PortalAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PortalAccount.swift; sourceTree = "<group>"; };
-		08CD3C4E1BFF6F42005CEE1D /* Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		08CD3C551BFF6F42005CEE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		08CD3C571BFF6F42005CEE1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		08CD3C5A1BFF6F42005CEE1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		08CD3C5C1BFF6F42005CEE1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowserViewController.swift; sourceTree = "<group>"; };
-		08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SVProgressHUD.framework; path = ../Carthage/Build/iOS/SVProgressHUD.framework; sourceTree = "<group>"; };
-		08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetAccountViewController.swift; sourceTree = "<group>"; };
-		08FA4B121BFF7F1F000802A4 /* SetMatrixcodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetMatrixcodeViewController.swift; sourceTree = "<group>"; };
-		08FA4B131BFF7F1F000802A4 /* SetRootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetRootViewController.swift; sourceTree = "<group>"; };
-		08FA4B141BFF7F1F000802A4 /* UITextFieldPlus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UITextFieldPlus.swift; sourceTree = "<group>"; };
-		08FA4B191BFF7FA1000802A4 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,18 +37,6 @@
 			files = (
 				0889C00C1DD0DA9600A6E4A3 /* Alamofire.framework in Frameworks */,
 				0889C00D1DD0DA9600A6E4A3 /* Kanna.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		08CD3C4B1BFF6F42005CEE1D /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0892B5721DD0DE0B00E58D55 /* KeychainAccess.framework in Frameworks */,
-				08CD3C701BFF7A86005CEE1D /* SVProgressHUD.framework in Frameworks */,
-				084059191DD0E05A0094F225 /* Kanna.framework in Frameworks */,
-				08CD3C671BFF76AA005CEE1D /* LoginTokyoTechPortal.framework in Frameworks */,
-				0840591B1DD0E0600094F225 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,7 +56,6 @@
 			isa = PBXGroup;
 			children = (
 				08CD3C2A1BFF5C6D005CEE1D /* LoginTokyoTechPortal */,
-				08CD3C4F1BFF6F42005CEE1D /* Sample */,
 				08CD3C291BFF5C6D005CEE1D /* Products */,
 				0889C0091DD0DA9600A6E4A3 /* Frameworks */,
 			);
@@ -155,7 +65,6 @@
 			isa = PBXGroup;
 			children = (
 				08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */,
-				08CD3C4E1BFF6F42005CEE1D /* Sample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,27 +81,6 @@
 				08CD3C2D1BFF5C6D005CEE1D /* Info.plist */,
 			);
 			path = LoginTokyoTechPortal;
-			sourceTree = "<group>";
-		};
-		08CD3C4F1BFF6F42005CEE1D /* Sample */ = {
-			isa = PBXGroup;
-			children = (
-				0829194A1DD0E57800DAFA4F /* Sample.entitlements */,
-				08CD3C501BFF6F42005CEE1D /* AppDelegate.swift */,
-				08CD3C601BFF7407005CEE1D /* BrowserViewController.swift */,
-				08FA4B111BFF7F1F000802A4 /* SetAccountViewController.swift */,
-				08FA4B121BFF7F1F000802A4 /* SetMatrixcodeViewController.swift */,
-				08FA4B131BFF7F1F000802A4 /* SetRootViewController.swift */,
-				08FA4B191BFF7FA1000802A4 /* JSON.swift */,
-				08FA4B141BFF7F1F000802A4 /* UITextFieldPlus.swift */,
-				08CD3C541BFF6F42005CEE1D /* Main.storyboard */,
-				08CD3C571BFF6F42005CEE1D /* Assets.xcassets */,
-				08CD3C591BFF6F42005CEE1D /* LaunchScreen.storyboard */,
-				0892B5711DD0DE0B00E58D55 /* KeychainAccess.framework */,
-				08CD3C6D1BFF7A86005CEE1D /* SVProgressHUD.framework */,
-				08CD3C5C1BFF6F42005CEE1D /* Info.plist */,
-			);
-			path = Sample;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -227,25 +115,6 @@
 			productReference = 08CD3C281BFF5C6D005CEE1D /* LoginTokyoTechPortal.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		08CD3C4D1BFF6F42005CEE1D /* Sample */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 08CD3C5D1BFF6F42005CEE1D /* Build configuration list for PBXNativeTarget "Sample" */;
-			buildPhases = (
-				08CD3C4A1BFF6F42005CEE1D /* Sources */,
-				08CD3C4B1BFF6F42005CEE1D /* Frameworks */,
-				08CD3C4C1BFF6F42005CEE1D /* Resources */,
-				08CD3C6B1BFF76AA005CEE1D /* Embed Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				08CD3C6A1BFF76AA005CEE1D /* PBXTargetDependency */,
-			);
-			name = Sample;
-			productName = Sample;
-			productReference = 08CD3C4E1BFF6F42005CEE1D /* Sample.app */;
-			productType = "com.apple.product-type.application";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -253,21 +122,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0710;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = nanashiki;
 				TargetAttributes = {
 					08CD3C271BFF5C6D005CEE1D = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0810;
-					};
-					08CD3C331BFF5CAF005CEE1D = {
-						CreatedOnToolsVersion = 7.1.1;
-					};
-					08CD3C4D1BFF6F42005CEE1D = {
-						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = LZ2DAKZC5J;
-						LastSwiftMigration = 0810;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 0920;
 					};
 				};
 			};
@@ -285,8 +145,6 @@
 			projectRoot = "";
 			targets = (
 				08CD3C271BFF5C6D005CEE1D /* LoginTokyoTechPortal */,
-				08CD3C331BFF5CAF005CEE1D /* LoginTokyoTechPortal-Universal */,
-				08CD3C4D1BFF6F42005CEE1D /* Sample */,
 			);
 		};
 /* End PBXProject section */
@@ -299,33 +157,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		08CD3C4C1BFF6F42005CEE1D /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				08CD3C5B1BFF6F42005CEE1D /* LaunchScreen.storyboard in Resources */,
-				08CD3C581BFF6F42005CEE1D /* Assets.xcassets in Resources */,
-				08CD3C561BFF6F42005CEE1D /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		08CD3C491BFF6E81005CEE1D /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "######################\n# Options\n######################\n\nREVEAL_ARCHIVE_IN_FINDER=false\n\nFRAMEWORK_NAME=\"${PROJECT_NAME}\"\n\nSIMULATOR_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/${FRAMEWORK_NAME}.framework\"\n\nDEVICE_LIBRARY_PATH=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/${FRAMEWORK_NAME}.framework\"\n\nUNIVERSAL_LIBRARY_DIR=\"${BUILD_DIR}/${CONFIGURATION}-iphoneuniversal\"\n\nFRAMEWORK=\"${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework\"\n\n\n######################\n# Build Frameworks\n######################\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -scheme ${FRAMEWORK_NAME} -sdk iphonesimulator -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphonesimulator 2>&1\n\nxcodebuild -project ${PROJECT_NAME}.xcodeproj -scheme ${FRAMEWORK_NAME} -sdk iphoneos -configuration ${CONFIGURATION} clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/${CONFIGURATION}-iphoneos 2>&1\n\n######################\n# Create directory for universal\n######################\n\nrm -rf \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${UNIVERSAL_LIBRARY_DIR}\"\n\nmkdir \"${FRAMEWORK}\"\n\n\n######################\n# Copy files Framework\n######################\n\ncp -r \"${DEVICE_LIBRARY_PATH}/.\" \"${FRAMEWORK}\"\n\n\n######################\n# Make an universal binary\n######################\n\nlipo \"${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}\" \"${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}\" -create -output \"${FRAMEWORK}/${FRAMEWORK_NAME}\" | echo\n\n# For Swift framework, Swiftmodule needs to be copied in the universal framework\nif [ -d \"${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                      fi\n                                                                      \n                                                                      #*/\n\nif [ -d \"${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" ]; then\ncp -f ${DEVICE_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/* \"${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule/\" | echo\n                                                                   fi\n                                                                   \n                                                                   ###################### */\n# On Release, copy the result to release directory\n######################\nOUTPUT_DIR=\"${PROJECT_DIR}/Output/${FRAMEWORK_NAME}-${CONFIGURATION}-iphoneuniversal/\"\n\nrm -rf \"$OUTPUT_DIR\"\nmkdir -p \"$OUTPUT_DIR\"\n\ncp -r \"${FRAMEWORK}\" \"$OUTPUT_DIR\"\n\nif [ ${REVEAL_ARCHIVE_IN_FINDER} = true ]; then\nopen \"${OUTPUT_DIR}/\"\nfi";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		08CD3C231BFF5C6D005CEE1D /* Sources */ = {
@@ -340,48 +172,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		08CD3C4A1BFF6F42005CEE1D /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				08FA4B171BFF7F1F000802A4 /* SetRootViewController.swift in Sources */,
-				08FA4B1A1BFF7FA1000802A4 /* JSON.swift in Sources */,
-				08CD3C611BFF7407005CEE1D /* BrowserViewController.swift in Sources */,
-				08FA4B161BFF7F1F000802A4 /* SetMatrixcodeViewController.swift in Sources */,
-				08FA4B181BFF7F1F000802A4 /* UITextFieldPlus.swift in Sources */,
-				08FA4B151BFF7F1F000802A4 /* SetAccountViewController.swift in Sources */,
-				08CD3C511BFF6F42005CEE1D /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		08CD3C6A1BFF76AA005CEE1D /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 08CD3C271BFF5C6D005CEE1D /* LoginTokyoTechPortal */;
-			targetProxy = 08CD3C691BFF76AA005CEE1D /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		08CD3C541BFF6F42005CEE1D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				08CD3C551BFF6F42005CEE1D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		08CD3C591BFF6F42005CEE1D /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				08CD3C5A1BFF6F42005CEE1D /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		08CD3C2E1BFF5C6D005CEE1D /* Debug */ = {
@@ -392,14 +183,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -427,6 +224,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -442,14 +240,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -470,6 +274,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_INCLUDE_PATHS = "$(SRCROOT)/Modules";
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -492,7 +297,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -501,7 +306,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -519,7 +325,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = LoginTokyoTechPortal/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -527,65 +333,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.LoginTokyoTechPortal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		08CD3C351BFF5CAF005CEE1D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		08CD3C361BFF5CAF005CEE1D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
-		08CD3C5E1BFF6F42005CEE1D /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LZ2DAKZC5J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = Sample/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.Sample;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		08CD3C5F1BFF6F42005CEE1D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Sample/Sample.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = LZ2DAKZC5J;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = Sample/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.dotApp.Sample;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -606,24 +355,6 @@
 			buildConfigurations = (
 				08CD3C311BFF5C6D005CEE1D /* Debug */,
 				08CD3C321BFF5C6D005CEE1D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		08CD3C341BFF5CAF005CEE1D /* Build configuration list for PBXAggregateTarget "LoginTokyoTechPortal-Universal" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				08CD3C351BFF5CAF005CEE1D /* Debug */,
-				08CD3C361BFF5CAF005CEE1D /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		08CD3C5D1BFF6F42005CEE1D /* Build configuration list for PBXNativeTarget "Sample" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				08CD3C5E1BFF6F42005CEE1D /* Debug */,
-				08CD3C5F1BFF6F42005CEE1D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

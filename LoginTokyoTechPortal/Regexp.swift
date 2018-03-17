@@ -33,12 +33,12 @@ struct Regexp{
     
     func matches(_ string : String)->[[String]]?{
         do{
-            let results = try NSRegularExpression(pattern: pattern, options: options).matches(in: string, options: .reportProgress, range: NSMakeRange(0,string.characters.count))
+            let results = try NSRegularExpression(pattern: pattern, options: options).matches(in: string, options: .reportProgress, range: NSMakeRange(0,string.count))
             var dats : [[String]] = [];
             for result in results {
                 var datss :[String] = []
                 for j in 1 ..< result.numberOfRanges {
-                    datss.append((string as NSString).substring(with: result.rangeAt(j)))
+                    datss.append((string as NSString).substring(with: result.range(at: j)))
                 }
                 dats += [datss]
             }
@@ -51,13 +51,13 @@ struct Regexp{
     
     func match(_ string : String,at : Int)->String?{
         do{
-            let dat = try NSRegularExpression(pattern: pattern, options: options).matches(in: string, options: .reportProgress, range: NSMakeRange(0,string.characters.count))
+            let dat = try NSRegularExpression(pattern: pattern, options: options).matches(in: string, options: .reportProgress, range: NSMakeRange(0,string.count))
             
             if dat.count == 0 {
                 return nil
             }
             
-            return (string as NSString).substring(with: dat[0].rangeAt(at))
+            return (string as NSString).substring(with: dat[0].range(at: at))
         }catch{
             return nil
         }

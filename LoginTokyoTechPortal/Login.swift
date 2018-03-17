@@ -34,6 +34,7 @@ fileprivate struct LoginURL {
     static let post = "https://portal.nap.gsic.titech.ac.jp/GetAccess/Login"
     static let ocwi = "https://secure.ocw.titech.ac.jp/ocwi/index.php"
     static let calender = "https://secure.ocw.titech.ac.jp/ocwi/index.php?module=Ocwi&action=Webcal&iCalendarId="
+    static let resourceList = "https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList"
 }
 
 fileprivate struct ConfirmString {
@@ -53,7 +54,7 @@ open class Login: NSObject {
     
     //Status
     open fileprivate (set) var status:LoginStatus = .noLogin
-    open fileprivate (set) dynamic var progress = 0
+    @objc open fileprivate (set) dynamic var progress = 0
     
     //Portal Account
     open var account = PortalAccount(username: nil, password: nil, matrixcode: nil)
@@ -142,7 +143,7 @@ open class Login: NSObject {
             return request
         }
         
-        sessionManager.request("https://portal.nap.gsic.titech.ac.jp/GetAccess/ResourceList").response {
+        sessionManager.request(LoginURL.resourceList).response {
             response in
             delegate.taskWillPerformHTTPRedirection = nil
             print(response.response?.statusCode ?? 0)
@@ -314,8 +315,15 @@ open class Login: NSObject {
     }
     
     fileprivate func login_AccountPassword(html : String ,account : String, password: String,completion:@escaping ((Bool,String)->())){
-        guard let doc = HTML(html: html, encoding: String.Encoding.utf8) else{
-            return
+        guard let doc = { () -> HTMLDocument? in
+            do{
+                return try HTML(html: html, encoding: String.Encoding.utf8)
+            } catch {
+                print(error)
+                return nil
+            }
+            }() else {
+                return
         }
         
         var parameters = [String:String]()
@@ -400,8 +408,15 @@ open class Login: NSObject {
             return
         }
         
-        guard let doc = HTML(html: html, encoding: String.Encoding.utf8) else{
-            return
+        guard let doc = { () -> HTMLDocument? in
+            do{
+                return try HTML(html: html, encoding: String.Encoding.utf8)
+            } catch {
+                print(error)
+                return nil
+            }
+            }() else {
+                return
         }
         
         var parameters = [String:String]()
@@ -449,7 +464,7 @@ open class Login: NSObject {
     }
     
     fileprivate func login_OCWi(completion:@escaping ((Bool)->())){
-        Alamofire.request(LoginURL.ocwi).responseString(encoding:String.Encoding.utf8,completionHandler: {
+        Alamofire.request(LoginURL.ocwi).responseString(encoding:String.Encoding.utf8) {
             response in
             switch response.result {
             case .success(let html):
@@ -464,7 +479,7 @@ open class Login: NSObject {
                 self.status = .networkError
                 completion(false)
             }
-        })
+        }
     }
     
     fileprivate func getOCWiCalendarURL(_ ocwiHTML:String)->String?{
